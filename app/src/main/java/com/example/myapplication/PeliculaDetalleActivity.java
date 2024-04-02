@@ -25,7 +25,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String nombre = intent.getStringExtra("nombre");
-        String estrenoStr = intent.getStringExtra("estreno");
+        String estreno = intent.getStringExtra("estreno");
         String descripcion = intent.getStringExtra("descripcion");
         String genero = intent.getStringExtra("genero");
         String director = intent.getStringExtra("director");
@@ -45,15 +45,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
 
         // Mostrar datos
         textViewNombre.setText(nombre);
-        if (estrenoStr != null) {
-            long estrenoLong = Long.parseLong(estrenoStr);
-            Date estrenoDate = new Date(estrenoLong);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "ES"));
-            String fechaFormateada = dateFormat.format(estrenoDate);
-            textViewEstreno.setText("Estreno: " + fechaFormateada);
-        } else {
-            textViewEstreno.setText("Estreno: Desconocido");
-        }
+        textViewEstreno.setText("Estreno: " + estreno);
         textViewDescripcion.setText("Descripción: " + descripcion);
         textViewGeneroDirector.setText("Género: " + genero + ", Director: " + director);
 

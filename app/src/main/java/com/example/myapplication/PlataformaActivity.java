@@ -19,10 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PlataformaActivity extends AppCompatActivity implements PlataformaAdapter.OnItemClickListener {
 
@@ -127,7 +129,9 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("push", pelicula.getPush());
         intent.putExtra("plataforma", pelicula.getPlataforma());
         intent.putExtra("tipo", pelicula.getTipo());
-        intent.putExtra("estreno", pelicula.getEstreno().toDate().getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String fechaFormateada = dateFormat.format(pelicula.getEstreno().toDate());
+        intent.putExtra("estreno", fechaFormateada);
         startActivity(intent);
     }
 
