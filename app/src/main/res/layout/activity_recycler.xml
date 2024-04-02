@@ -8,11 +8,11 @@
     tools:context=".PlataformaActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_testreno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Estrenadas"
+        android:text="Tipo de estreno"
         android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaNetflix"

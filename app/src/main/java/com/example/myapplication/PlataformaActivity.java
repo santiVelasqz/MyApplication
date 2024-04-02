@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,11 +36,20 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         setContentView(R.layout.activity_recycler);
 
         recyclerView = findViewById(R.id.listaNetflix);
+        TextView tvestreno = findViewById(R.id.tv_testreno);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String plataforma = getIntent().getStringExtra("plataforma");
         String tipoEstreno = getIntent().getStringExtra("tipoEstreno");
+
+        if (tipoEstreno == "estrenados"){
+            tvestreno.setText("Estrenadas");
+        } else if (tipoEstreno == "proximos") {
+            tvestreno.setText("Proximos estrenos");
+        }else {
+            tvestreno.setText("");
+        }
 
         peliculas = new ArrayList<>(); // Corregido a Pelicula
 
@@ -84,6 +94,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                     }
                 });
     }
+
+
 
     // Método para verificar si la película cumple con el tipo de estreno (estrenos pasados o próximos)
     private boolean cumpleTipoEstreno(Timestamp estrenoTimestamp, String tipoEstreno) {
