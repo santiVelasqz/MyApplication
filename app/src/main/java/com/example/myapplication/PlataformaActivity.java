@@ -43,11 +43,11 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         String plataforma = getIntent().getStringExtra("plataforma");
         String tipoEstreno = getIntent().getStringExtra("tipoEstreno");
 
-        if (tipoEstreno == "estrenados"){
+        if (tipoEstreno.equals("estrenados")) {
             tvestreno.setText("Estrenadas");
-        } else if (tipoEstreno == "proximos") {
+        } else if (tipoEstreno.equals("proximos")) {
             tvestreno.setText("Proximos estrenos");
-        }else {
+        } else {
             tvestreno.setText("");
         }
 
