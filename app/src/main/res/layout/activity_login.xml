@@ -34,8 +34,8 @@
     <Button
         android:id="@+id/btn_acceder"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="139dp"
+        android:layout_height="44dp"
         android:backgroundTint="#11AE8E"
         android:text="Acceder"
         android:textColor="#F3EAEA"
@@ -61,14 +61,16 @@
 
     <Button
         android:id="@+id/btn_google"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="369dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#11AE8E"
-        android:text="Iniciar sesion con Google"
-        android:textColor="#F3EAEA"
-        android:textStyle="bold"
+        android:layout_width="273dp"
+        android:layout_height="54dp"
+        android:backgroundTint="#E6E8E8"
+        android:drawableLeft="@drawable/googleg_standard_color_18"
+        android:fontFamily="sans-serif-medium"
 
+        android:text="Continuar con Google..."
+        android:textColor="#121111"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,28 +82,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"/>
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6"/>
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7"/>
+        app:layout_constraintGuide_percent="0.7" />
 
     <ImageView
         android:id="@+id/imageView"
