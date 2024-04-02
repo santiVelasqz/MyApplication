@@ -1,5 +1,4 @@
 package com.example.myapplication;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,17 +47,15 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         textViewNombre.setText(nombre);
 
         if (estreno != null && !estreno.isEmpty()) {
-            // Cortar el String para obtener solo el día de la semana, el mes y el día del mes
-            String fechaCortada = estreno.substring(0, 10);
+            // Formatear la fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "ES"));
+            String fechaFormateada = dateFormat.format(new Date(Long.parseLong(estreno)));
 
-            // Mostrar la fecha cortada en el TextView
-            textViewEstreno.setText("Estreno: " + fechaCortada);
+            // Mostrar la fecha formateada en el TextView
+            textViewEstreno.setText("Estreno: " + fechaFormateada);
         } else {
             textViewEstreno.setText("Estreno: Desconocido");
         }
-
-
-        System.out.println("Valor de estreno: " + estreno); //
 
         textViewDescripcion.setText("Descripción: " + descripcion);
         textViewGeneroDirector.setText("Género: " + genero + ", Director: " + director);

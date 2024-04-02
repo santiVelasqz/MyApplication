@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.PeliculaViewHolder> {
     private Context context;
@@ -43,9 +45,13 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
     public void onBindViewHolder(@NonNull PeliculaViewHolder holder, int position) {
         Pelicula pelicula = peliculas.get(position);
         holder.bind(pelicula);
-
-        // Cargar la imagen usando Picasso en onBindViewHolder()
         Picasso.get().load(pelicula.getFotoUrl()).into(holder.imagen_pelicula);
+
+        // Formatear la fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "ES"));
+        String fechaFormateada = dateFormat.format(pelicula.getEstreno().toDate());
+
+        holder.fecha_peli.setText(fechaFormateada); // Establecer la fecha formateada
     }
 
     @Override
