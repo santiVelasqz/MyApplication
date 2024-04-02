@@ -1,4 +1,5 @@
 package com.example.myapplication;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +23,9 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelicula);
 
-        // Obtener datos de la película pasados desde el intent
         Intent intent = getIntent();
         String nombre = intent.getStringExtra("nombre");
-        String estreno = intent.getStringExtra("estreno");
+        String estrenoStr = intent.getStringExtra("estreno");
         String descripcion = intent.getStringExtra("descripcion");
         String genero = intent.getStringExtra("genero");
         String director = intent.getStringExtra("director");
@@ -35,7 +35,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         String push = intent.getStringExtra("push");
         final String trailerUrl = intent.getStringExtra("trailerUrl");
 
-        // Obtener referencias de vistas
+        // Referencias de vistas
         ImageView imageViewFoto = findViewById(R.id.imageViewFoto);
         TextView textViewNombre = findViewById(R.id.textViewNombre);
         TextView textViewEstreno = findViewById(R.id.textViewEstreno);
@@ -43,32 +43,30 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         TextView textViewGeneroDirector = findViewById(R.id.textViewGeneroDirector);
         Button buttonTrailer = findViewById(R.id.buttonTrailer);
 
-        // Mostrar datos en las vistas
+        // Mostrar datos
         textViewNombre.setText(nombre);
-
-        if (estreno != null && !estreno.isEmpty()) {
-            // Formatear la fecha
+        if (estrenoStr != null) {
+            long estrenoLong = Long.parseLong(estrenoStr);
+            Date estrenoDate = new Date(estrenoLong);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "ES"));
-            String fechaFormateada = dateFormat.format(new Date(Long.parseLong(estreno)));
-
-            // Mostrar la fecha formateada en el TextView
+            String fechaFormateada = dateFormat.format(estrenoDate);
             textViewEstreno.setText("Estreno: " + fechaFormateada);
         } else {
             textViewEstreno.setText("Estreno: Desconocido");
         }
-
         textViewDescripcion.setText("Descripción: " + descripcion);
         textViewGeneroDirector.setText("Género: " + genero + ", Director: " + director);
 
-        // Cargar imagen de la película usando Picasso
+        // Cargar imagen de la película
         Picasso.get().load(fotoUrl).into(imageViewFoto);
 
-        // Abrir el trailer de la película en YouTube al hacer clic en el botón
+        // Abrir el trailer de la película en YouTube
         buttonTrailer.setOnClickListener(v -> {
             Intent trailerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
             startActivity(trailerIntent);
         });
     }
+
 
     public void atras (View view){
         finish();

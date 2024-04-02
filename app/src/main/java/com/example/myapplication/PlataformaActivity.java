@@ -117,7 +117,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     @Override
     public void onItemClick(int position) {
         Pelicula pelicula = peliculas.get(position);
-        System.out.println("Valor de estreno: " + pelicula.getEstreno());
         Intent intent = new Intent(this, PeliculaDetalleActivity.class);
         intent.putExtra("nombre", pelicula.getNombre());
         intent.putExtra("descripcion", pelicula.getDescripcion());
@@ -128,9 +127,10 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("push", pelicula.getPush());
         intent.putExtra("plataforma", pelicula.getPlataforma());
         intent.putExtra("tipo", pelicula.getTipo());
-        intent.putExtra("estreno", pelicula.getEstreno().toDate().toString());
+        intent.putExtra("estreno", pelicula.getEstreno().toDate().getTime());
         startActivity(intent);
     }
+
 
     public void atras (View view){
         finish();
