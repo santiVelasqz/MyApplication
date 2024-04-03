@@ -17,11 +17,17 @@ import java.util.Date;
 import java.util.Locale;
 
 public class PeliculaDetalleActivity extends AppCompatActivity {
+    private SessionManager sessionManager;
+    Button btnCerrarsesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelicula);
+        btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
+
+        // Inicializar sessionManager
+        sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
         String nombre = intent.getStringExtra("nombre");
@@ -57,10 +63,32 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             Intent trailerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
             startActivity(trailerIntent);
         });
+        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarsesion();
+            }
+        });
     }
 
 
+    public void cerrarsesion (){
+        sessionManager.cerrarSesion();
+
+        // Redirigir al LoginActivity
+        Intent intent = new Intent(PeliculaDetalleActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
+    }
+
     public void atras (View view){
+        finish();
+    }
+
+    public void principal(View view){
+
+        Intent intent = new Intent(PeliculaDetalleActivity.this, SelecEstreno.class);
+        startActivity(intent);
         finish();
     }
 }

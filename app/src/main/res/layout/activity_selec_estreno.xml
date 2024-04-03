@@ -7,6 +7,49 @@
     android:background="@drawable/fondo3"
     tools:context=".SelecEstreno">
 
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="56dp"
+        android:background="#11AE8E"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            android:onClick="atras"
+            app:icon="@drawable/flecha_atras_removebg_preview"
+            app:iconGravity="textStart"
+            app:iconSize="28dp" />
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@android:color/transparent"
+            android:text="MovieStream"
+            android:textSize="28dp" />
+
+        <Button
+            android:id="@+id/btn_cerrarsesion"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            app:icon="@drawable/cierre_sesion_removebg_preview"
+            app:iconGravity="textStart"
+            app:iconSize="28dp"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_estrenados"
         style="@style/Widget.MaterialComponents.Button"
@@ -36,22 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <Button
-        android:id="@+id/btn_cerrarsesion"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#11AE8E"
-        android:text="Cerrar sesión"
-        android:textColor="#F3EAEA"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.585" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -74,20 +101,5 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.50" />
 
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#11AE8E"
-        android:onClick="atras"
-        android:text="Atras"
-        android:textColor="#F3EAEA"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.489" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

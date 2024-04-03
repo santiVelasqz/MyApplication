@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +32,19 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private RecyclerView recyclerView;
     private PlataformaAdapter adapter;
     private List<Pelicula> peliculas;
+    private SessionManager sessionManager;
+    Button btnCerrarsesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
+        // Inicialización del botón dentro de onCreate()
+        btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
+
+
+        // Inicializar sessionManager
+        sessionManager = new SessionManager(this);
 
         recyclerView = findViewById(R.id.listaNetflix);
         TextView tvestreno = findViewById(R.id.tv_testreno);
@@ -95,6 +104,12 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                         }
                     }
                 });
+        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarsesion();
+            }
+        });
     }
 
 
@@ -136,7 +151,23 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     }
 
 
+    public void cerrarsesion (){
+        sessionManager.cerrarSesion();
+
+        // Redirigir al LoginActivity
+        Intent intent = new Intent(PlataformaActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
+    }
+
     public void atras (View view){
+        finish();
+    }
+
+    public void principal(View view){
+
+        Intent intent = new Intent(PlataformaActivity.this, SelecEstreno.class);
+        startActivity(intent);
         finish();
     }
 }
