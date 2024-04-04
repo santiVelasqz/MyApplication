@@ -13,8 +13,9 @@ public class Pelicula {
     private String tipo;
     private String push;
     private String director;
+    private String estrenoFormateado;
 
-    public Pelicula(String nombre, String descripcion, String fotoUrl, String trailerUrl, String plataforma, Timestamp estreno, String genero, String tipo, String push, String director) {
+    public Pelicula(String nombre, String descripcion, String fotoUrl, String trailerUrl, String plataforma, Timestamp estreno, String genero, String tipo, String push, String director, String estrenoFormateado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fotoUrl = fotoUrl;
@@ -25,9 +26,17 @@ public class Pelicula {
         this.push = push;
         this.director = director;
         this.genero = genero;
+        this.estrenoFormateado = estrenoFormateado;
 
     }
 
+    public String getEstrenoFormateado() {
+        return estrenoFormateado;
+    }
+
+    public void setEstrenoFormateado(String estrenoFormateado) {
+        this.estrenoFormateado = estrenoFormateado;
+    }
     public Timestamp getEstreno() {
         return estreno;
     }

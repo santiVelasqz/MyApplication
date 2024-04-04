@@ -53,7 +53,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         textViewNombre.setText(nombre);
         textViewEstreno.setText("Estreno: " + estreno);
         textViewDescripcion.setText("Descripción: " + descripcion);
-        textViewGeneroDirector.setText("Género: " + genero + ", Director: " + director);
+        textViewGeneroDirector.setText("Género: " + genero + "   || Director: " + director);
 
         // Cargar imagen de la película
         Picasso.get().load(fotoUrl).into(imageViewFoto);

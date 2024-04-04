@@ -20,10 +20,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PlataformaActivity extends AppCompatActivity implements PlataformaAdapter.OnItemClickListener {
 
@@ -32,6 +34,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private List<Pelicula> peliculas;
     private SessionManager sessionManager;
     Button btnCerrarsesion;
+    String estrenoFormateado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                                 String fotoUrl = document.getString("Foto");
                                 String trailerUrl = document.getString("Trailer");
                                 Timestamp estrenoTimestamp = document.getTimestamp("Estreno");
+                                SimpleDateFormat sdf = new SimpleDateFormat("d 'de' MMMM yyyy", new Locale("es", "ES"));
+                                estrenoFormateado = sdf.format(estrenoTimestamp.toDate());
                                 String plataforma = document.getString("Plataforma");
                                 String genero = document.getString("Genero");
                                 String tipo = document.getString("Tipo");
@@ -80,7 +85,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                                 String director = document.getString("Director");
 
                                 if (cumpleTipoEstreno(estrenoTimestamp, tipoEstreno)) {
-                                    peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director));
+                                    peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director, estrenoFormateado));
                                 }
                             }
 
@@ -144,7 +149,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("push", pelicula.getPush());
         intent.putExtra("plataforma", pelicula.getPlataforma());
         intent.putExtra("tipo", pelicula.getTipo());
-        intent.putExtra("estreno", pelicula.getEstreno().toDate().getTime());
+        intent.putExtra("estreno", pelicula.getEstrenoFormateado());
         startActivity(intent);
     }
 
