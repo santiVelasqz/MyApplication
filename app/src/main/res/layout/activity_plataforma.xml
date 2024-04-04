@@ -51,13 +51,6 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,27 +59,13 @@
 
     <ListView
         android:id="@+id/list_plata"
-        android:layout_width="178dp"
-        android:layout_height="437dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        android:layout_width="229dp"
+        android:layout_height="579dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        android:dividerHeight="45dp"
-        android:divider="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <ImageButton
-        android:id="@+id/btn_todas"
-        android:layout_width="338dp"
-        android:layout_height="102dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/botontodas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
