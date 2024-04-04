@@ -35,7 +35,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         this.peliculas = peliculas;
 
         if (peliculas.isEmpty()) {
-            Toast.makeText(context, "No hay películas en esta lista.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Hoy no se estrena nada ):", Toast.LENGTH_SHORT).show();
         }
     }
 
