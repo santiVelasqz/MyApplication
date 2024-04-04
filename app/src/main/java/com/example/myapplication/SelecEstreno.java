@@ -24,6 +24,7 @@ public class SelecEstreno extends AppCompatActivity {
 
         Button btnestrenados = findViewById(R.id.btn_estrenados);
         Button btnproximos = findViewById(R.id.btn_proximos);
+        Button btnhoy = findViewById(R.id.btn_estrenos_hoy);
 
         btnestrenados.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +32,16 @@ public class SelecEstreno extends AppCompatActivity {
                 // Redirigir a SelecPlataforma para ver estrenos pasados
                 Intent intent = new Intent(SelecEstreno.this, SelecPlataforma.class);
                 intent.putExtra("tipoEstreno", "estrenados");
+                startActivity(intent);
+            }
+        });
+
+        btnhoy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirigir a SelecPlataforma para ver estrenos pasados
+                Intent intent = new Intent(SelecEstreno.this, PlataformaActivity.class);
+                intent.putExtra("tipoEstreno", "hoy");
                 startActivity(intent);
             }
         });

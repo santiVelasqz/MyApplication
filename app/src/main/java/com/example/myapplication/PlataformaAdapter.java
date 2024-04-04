@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,11 +33,16 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
     public PlataformaAdapter(Context context, List<Pelicula> peliculas) {
         this.context = context;
         this.peliculas = peliculas;
+
+        if (peliculas.isEmpty()) {
+            Toast.makeText(context, "No hay películas en esta lista.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @NonNull
     @Override
     public PeliculaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.item_movie_xml, parent, false);
         return new PeliculaViewHolder(view);
     }
@@ -50,6 +56,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         // Formatear la fecha
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("es", "ES"));
         String fechaFormateada = dateFormat.format(pelicula.getEstreno().toDate());
+
 
         holder.fecha_peli.setText(fechaFormateada); // Establecer la fecha formateada
     }

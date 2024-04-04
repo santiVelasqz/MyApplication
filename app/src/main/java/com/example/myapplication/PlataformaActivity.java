@@ -42,7 +42,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         // Inicialización del botón dentro de onCreate()
         btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
 
-
         // Inicializar sessionManager
         sessionManager = new SessionManager(this);
 
@@ -59,7 +58,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         } else if (tipoEstreno.equals("proximos")) {
             tvestreno.setText("Proximos estrenos");
         } else {
-            tvestreno.setText("");
+            tvestreno.setText("¡Se estrena hoy!");
         }
 
         peliculas = new ArrayList<>(); // Corregido a Pelicula
@@ -67,7 +66,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         // Obtener referencia a la colección de películas en Firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        if (plataforma.equals("todas")) {
+        if (tipoEstreno != null && tipoEstreno.equals("estrenados")) {
             db.collection("Peliculas")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -152,8 +151,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         });
     }
 
-
-
     // Método para verificar si la película cumple con el tipo de estreno (estrenos pasados o próximos)
     private boolean cumpleTipoEstreno(Timestamp estrenoTimestamp, String tipoEstreno) {
         Date fechaActual = Calendar.getInstance().getTime();
@@ -189,7 +186,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("estreno", fechaFormateada);
         startActivity(intent);
     }
-
 
     public void cerrarsesion (){
         sessionManager.cerrarSesion();
