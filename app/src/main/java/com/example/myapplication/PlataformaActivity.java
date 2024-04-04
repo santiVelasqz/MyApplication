@@ -66,44 +66,84 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
 
         // Obtener referencia a la colección de películas en Firebase
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Peliculas")
-                .whereEqualTo("Plataforma", plataforma) // Filtrar por plataforma seleccionada
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Obtener datos de la película
-                                String nombre = document.getString("Nombre");
-                                String descripcion = document.getString("Descripcion");
-                                String fotoUrl = document.getString("Foto");
-                                String trailerUrl = document.getString("Trailer");
-                                Timestamp estrenoTimestamp = document.getTimestamp("Estreno");
-                                String genero = document.getString("Genero");
-                                String tipo = document.getString("Tipo");
-                                String push = document.getString("push");
-                                String director = document.getString("Director");
 
-                                System.out.println("Valor de estreno: " + estrenoTimestamp); //
+        if (plataforma.equals("todas")) {
+            db.collection("Peliculas")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Obtener datos de la película
+                                    String nombre = document.getString("Nombre");
+                                    String descripcion = document.getString("Descripcion");
+                                    String fotoUrl = document.getString("Foto");
+                                    String trailerUrl = document.getString("Trailer");
+                                    Timestamp estrenoTimestamp = document.getTimestamp("Estreno");
+                                    String genero = document.getString("Genero");
+                                    String tipo = document.getString("Tipo");
+                                    String push = document.getString("push");
+                                    String director = document.getString("Director");
 
+                                    System.out.println("Valor de estreno: " + estrenoTimestamp); //
 
-                                // Agregar la película a la lista solo si cumple con el tipo de estreno
-                                if (cumpleTipoEstreno(estrenoTimestamp, tipoEstreno)) {
-                                    peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director));
+                                    // Agregar la película a la lista solo si cumple con el tipo de estreno
+                                    if (cumpleTipoEstreno(estrenoTimestamp, tipoEstreno)) {
+                                        peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director));
+                                    }
                                 }
-                            }
 
-                            // Configurar el adaptador con las películas obtenidas
-                            adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas);
-                            adapter.setOnItemClickListener(PlataformaActivity.this);
-                            recyclerView.setAdapter(adapter);
-                        } else {
-                            Log.d("PlataformaActivity", "Error getting documents: ", task.getException());
-                            Toast.makeText(PlataformaActivity.this, "Error al obtener películas", Toast.LENGTH_SHORT).show();
+                                // Configurar el adaptador con las películas obtenidas
+                                adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas);
+                                adapter.setOnItemClickListener(PlataformaActivity.this);
+                                recyclerView.setAdapter(adapter);
+                            } else {
+                                Log.d("PlataformaActivity", "Error getting documents: ", task.getException());
+                                Toast.makeText(PlataformaActivity.this, "Error al obtener películas", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            db.collection("Peliculas")
+                    .whereEqualTo("Plataforma", plataforma) // Filtrar por plataforma seleccionada
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Obtener datos de la película
+                                    String nombre = document.getString("Nombre");
+                                    String descripcion = document.getString("Descripcion");
+                                    String fotoUrl = document.getString("Foto");
+                                    String trailerUrl = document.getString("Trailer");
+                                    Timestamp estrenoTimestamp = document.getTimestamp("Estreno");
+                                    String genero = document.getString("Genero");
+                                    String tipo = document.getString("Tipo");
+                                    String push = document.getString("push");
+                                    String director = document.getString("Director");
+
+                                    System.out.println("Valor de estreno: " + estrenoTimestamp); //
+
+                                    // Agregar la película a la lista solo si cumple con el tipo de estreno
+                                    if (cumpleTipoEstreno(estrenoTimestamp, tipoEstreno)) {
+                                        peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director));
+                                    }
+                                }
+
+                                // Configurar el adaptador con las películas obtenidas
+                                adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas);
+                                adapter.setOnItemClickListener(PlataformaActivity.this);
+                                recyclerView.setAdapter(adapter);
+                            } else {
+                                Log.d("PlataformaActivity", "Error getting documents: ", task.getException());
+                                Toast.makeText(PlataformaActivity.this, "Error al obtener películas", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+
         btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
