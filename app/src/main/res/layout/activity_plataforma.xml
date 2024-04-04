@@ -7,7 +7,7 @@
     android:background="@drawable/fondo3"
     tools:context=".SelecPlataforma">
     <LinearLayout
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#11AE8E"
         android:orientation="horizontal"
