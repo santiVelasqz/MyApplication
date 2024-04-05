@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,6 +39,13 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         if (peliculas.isEmpty()) {
             Toast.makeText(context, "Hoy no se estrena nada ):", Toast.LENGTH_SHORT).show();
         }
+        // Ordenar la lista por fecha
+        Collections.sort(peliculas, new Comparator<Pelicula>() {
+            @Override
+            public int compare(Pelicula p1, Pelicula p2) {
+                return p1.getEstreno().compareTo(p2.getEstreno());
+            }
+        });
     }
 
     @NonNull
