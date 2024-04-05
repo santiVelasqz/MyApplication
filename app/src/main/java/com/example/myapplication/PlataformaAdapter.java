@@ -79,13 +79,17 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         private TextView textViewNombre;
         private ImageView imagen_pelicula;
         private TextView fecha_peli;
+        private TextView txtTipo;
+        private TextView txtPlataforma;
+
 
         public PeliculaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombre = itemView.findViewById(R.id.txt_movie_name);
             imagen_pelicula = itemView.findViewById(R.id.imag_pelic);
             fecha_peli = itemView.findViewById(R.id.tv_fecha);
-
+            txtTipo = itemView.findViewById(R.id.txt_tipo);
+            txtPlataforma = itemView.findViewById(R.id.txt_plataforma);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -101,6 +105,8 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
 
         public void bind(Pelicula pelicula) {
             textViewNombre.setText(pelicula.getNombre());
+            txtTipo.setText(pelicula.getTipo());
+            txtPlataforma.setText(pelicula.getPlataforma());
         }
     }
 }

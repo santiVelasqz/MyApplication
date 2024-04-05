@@ -31,6 +31,18 @@
             android:layout_height="wrap_content"
             android:text="Fecha"
             android:textSize="14sp" />
+        <TextView
+            android:id="@+id/txt_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/txt_plataforma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Plataforma"
+            android:textSize="14sp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
