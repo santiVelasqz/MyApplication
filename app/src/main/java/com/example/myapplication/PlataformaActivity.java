@@ -221,8 +221,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     }
 
     @Override
-    public void onItemClick(int position) {
-        Pelicula pelicula = peliculasFiltradas.get(position);
+    public void onItemClick(Pelicula pelicula) {
         Intent intent = new Intent(this, PeliculaDetalleActivity.class);
         intent.putExtra("nombre", pelicula.getNombre());
         intent.putExtra("descripcion", pelicula.getDescripcion());

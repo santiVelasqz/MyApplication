@@ -26,7 +26,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
     private String tipoEstreno;
 
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(Pelicula pelicula);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -99,7 +99,6 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         private TextView txtTipo;
         private TextView txtPlataforma;
 
-
         public PeliculaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombre = itemView.findViewById(R.id.txt_movie_name);
@@ -107,13 +106,14 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
             fecha_peli = itemView.findViewById(R.id.tv_fecha);
             txtTipo = itemView.findViewById(R.id.txt_tipo);
             txtPlataforma = itemView.findViewById(R.id.txt_plataforma);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
+                            listener.onItemClick(peliculas.get(position)); // Usar la película en la posición actual
                         }
                     }
                 }
@@ -121,9 +121,11 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         }
 
         public void bind(Pelicula pelicula) {
+            // Asignar los valores de la película a las vistas
             textViewNombre.setText(pelicula.getNombre());
             txtTipo.setText(pelicula.getTipo());
             txtPlataforma.setText(pelicula.getPlataforma());
         }
     }
+
 }
