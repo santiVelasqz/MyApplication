@@ -122,7 +122,12 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         Date fechaEstreno = estrenoTimestamp.toDate();
 
         if (tipoEstreno.equals("estrenados")) {
-            return fechaEstreno.compareTo(fechaActual) <= 0;
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_MONTH, -60); //fijar el limite de dias anteriores en que se muestran las peliculas ya estrenadas
+            Date fechaLimite = calendar.getTime();
+
+            // Verificar si la fecha de estreno está después de la fecha hace 30 días
+            return fechaEstreno.after(fechaLimite) && fechaEstreno.compareTo(fechaActual) <= 0;
         } else if (tipoEstreno.equals("proximos")) {
             return fechaEstreno.compareTo(fechaActual) > 0;
         } else if (tipoEstreno.equals("hoy")) {
