@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -36,12 +37,13 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private List<Pelicula> peliculasOriginales; // Lista que contiene todas las películas originales
     private List<Pelicula> peliculasFiltradas; // Lista que contiene las películas filtradas
     private SessionManager sessionManager;
-    Button btnCerrarsesion;
-    String estrenoFormateado;
-    String plataforma;
+    private Button btnCerrarsesion;
+    private String estrenoFormateado;
+    private String plataforma;
     private ToggleButton toggleSeries;
     private ToggleButton togglePeliculas;
-    String tipoEstreno;
+    private String tipoEstreno;
+    private SearchView txtbuscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,25 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         togglePeliculas = findViewById(R.id.togglePeliculas);
         btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
         sessionManager = new SessionManager(this);
-
+        txtbuscar = findViewById(R.id.txtbuscar);
+        txtbuscar.requestFocus();
         recyclerView = findViewById(R.id.listaNetflix);
         TextView tvestreno = findViewById(R.id.tv_testreno);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        txtbuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrarPorNombre(newText);
+                return true;
+            }
+        });
 
         toggleSeries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -158,9 +174,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         List<Pelicula> listaFiltrada = new ArrayList<>();
 
         for (Pelicula pelicula : peliculasFiltradas) {
-            // Si no se pulsa ninguno de los botones o se pulsan ambos, se muestran todas las películas
-            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked()) ||
-                    (toggleSeries.isChecked() && togglePeliculas.isChecked())) {
+            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked())) {
                 listaFiltrada.add(pelicula);
             } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo serie
@@ -191,7 +205,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             calendar.add(Calendar.DAY_OF_MONTH, -60); //fijar el limite de dias anteriores en que se muestran las peliculas ya estrenadas
             Date fechaLimite = calendar.getTime();
 
-            // Verificar si la fecha de estreno está después de la fecha hace 30 días
+            // Verificar si la fecha de estreno está después de la fechalimite
             return fechaEstreno.after(fechaLimite) && fechaEstreno.compareTo(fechaActual) <= 0;
         } else if (tipoEstreno.equals("proximos")) {
             return fechaEstreno.compareTo(fechaActual) > 0;
@@ -221,6 +235,26 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("tipo", pelicula.getTipo());
         intent.putExtra("estreno", pelicula.getEstrenoFormateado());
         startActivity(intent);
+    }
+
+    private void filtrarPorNombre(String query) {
+        List<Pelicula> listaFiltrada = new ArrayList<>();
+
+        for (Pelicula pelicula : peliculasFiltradas) {
+            if (pelicula.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                listaFiltrada.add(pelicula);
+            }
+        }
+
+        if (adapter != null) {
+            adapter.clear(); // Limpiar la lista actual en el adaptador
+            adapter.addAll(listaFiltrada); // Agregar la lista filtrada al adaptador
+            adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        } else {
+            adapter = new PlataformaAdapter(PlataformaActivity.this, listaFiltrada, tipoEstreno);
+            adapter.setOnItemClickListener(PlataformaActivity.this);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     public void cerrarsesion() {
