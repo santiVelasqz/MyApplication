@@ -55,6 +55,16 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        peliculas.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Pelicula> listaNueva) {
+        peliculas.addAll(listaNueva);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public PeliculaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

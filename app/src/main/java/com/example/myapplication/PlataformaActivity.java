@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,16 +33,22 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
 
     private RecyclerView recyclerView;
     private PlataformaAdapter adapter;
-    private List<Pelicula> peliculas;
+    private List<Pelicula> peliculasOriginales; // Lista que contiene todas las películas originales
+    private List<Pelicula> peliculasFiltradas; // Lista que contiene las películas filtradas
     private SessionManager sessionManager;
     Button btnCerrarsesion;
     String estrenoFormateado;
+    String plataforma;
+    private ToggleButton toggleSeries;
+    private ToggleButton togglePeliculas;
+    String tipoEstreno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
-
+        toggleSeries = findViewById(R.id.toggleSeries);
+        togglePeliculas = findViewById(R.id.togglePeliculas);
         btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
         sessionManager = new SessionManager(this);
 
@@ -49,8 +57,30 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String plataforma = getIntent().getStringExtra("plataforma");
-        String tipoEstreno = getIntent().getStringExtra("tipoEstreno");
+        toggleSeries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked && togglePeliculas.isChecked()) {
+                    // Si se activa el botón de series y el de películas está activado, desactivar el de películas
+                    togglePeliculas.setChecked(false);
+                }
+                actualizarLista();
+            }
+        });
+
+        togglePeliculas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked && toggleSeries.isChecked()) {
+                    // Si se activa el botón de películas y el de series está activado, desactivar el de series
+                    toggleSeries.setChecked(false);
+                }
+                actualizarLista();
+            }
+        });
+
+        plataforma = getIntent().getStringExtra("plataforma");
+        tipoEstreno = getIntent().getStringExtra("tipoEstreno");
 
         if (tipoEstreno.equals("estrenados")) {
             tvestreno.setText("Estrenadas");
@@ -60,8 +90,20 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             tvestreno.setText("¡Se estrena hoy!");
         }
 
-        peliculas = new ArrayList<>();
+        peliculasOriginales = new ArrayList<>();
+        peliculasFiltradas = new ArrayList<>();
 
+        obtenerDatosFirebase();
+
+        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarsesion();
+            }
+        });
+    }
+
+    private void obtenerDatosFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("Peliculas")
@@ -70,7 +112,9 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            peliculasOriginales.clear(); // Limpiar la lista antes de agregar los nuevos datos
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Obtener los datos y agregarlos a la lista de películas
                                 String nombre = document.getString("Nombre");
                                 String descripcion = document.getString("Descripcion");
                                 String fotoUrl = document.getString("Foto");
@@ -85,36 +129,57 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                                 String director = document.getString("Director");
 
                                 if (cumpleTipoEstreno(estrenoTimestamp, tipoEstreno)) {
-                                    peliculas.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director, estrenoFormateado));
+                                    peliculasOriginales.add(new Pelicula(nombre, descripcion, fotoUrl, trailerUrl, plataforma, estrenoTimestamp, genero, tipo, push, director, estrenoFormateado));
                                 }
                             }
 
                             if (plataforma != null && !plataforma.equals("todas")) {
                                 List<Pelicula> peliculasPorPlataforma = new ArrayList<>();
-                                for (Pelicula pelicula : peliculas) {
+                                for (Pelicula pelicula : peliculasOriginales) {
                                     if (pelicula.getPlataforma().equals(plataforma)) {
                                         peliculasPorPlataforma.add(pelicula);
                                     }
                                 }
-                                peliculas = peliculasPorPlataforma;
+                                peliculasFiltradas = peliculasPorPlataforma;
+                            } else {
+                                peliculasFiltradas = new ArrayList<>(peliculasOriginales);
                             }
 
-                            adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas, tipoEstreno);
-                            adapter.setOnItemClickListener(PlataformaActivity.this);
-                            recyclerView.setAdapter(adapter);
+                            actualizarLista();
                         } else {
                             Log.d("PlataformaActivity", "Error getting documents: ", task.getException());
                             Toast.makeText(PlataformaActivity.this, "Error al obtener películas", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
 
-        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cerrarsesion();
+    private void actualizarLista() {
+        List<Pelicula> listaFiltrada = new ArrayList<>();
+
+        for (Pelicula pelicula : peliculasFiltradas) {
+            // Si no se pulsa ninguno de los botones o se pulsan ambos, se muestran todas las películas
+            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked()) ||
+                    (toggleSeries.isChecked() && togglePeliculas.isChecked())) {
+                listaFiltrada.add(pelicula);
+            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie")) {
+                // Si se pulsa solo el botón de series, se muestran las películas de tipo serie
+                listaFiltrada.add(pelicula);
+            } else if (togglePeliculas.isChecked() && pelicula.getTipo().equals("Pelicula")) {
+                // Si se pulsa solo el botón de películas, se muestran las películas de tipo película
+                listaFiltrada.add(pelicula);
             }
-        });
+        }
+
+        if (adapter != null) {
+            adapter.clear(); // Limpiar la lista actual en el adaptador
+            adapter.addAll(listaFiltrada); // Agregar la lista filtrada al adaptador
+            adapter.notifyDataSetChanged(); // Notificar al adaptador que los datos han cambiado
+        } else {
+            adapter = new PlataformaAdapter(PlataformaActivity.this, listaFiltrada, tipoEstreno);
+            adapter.setOnItemClickListener(PlataformaActivity.this);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     private boolean cumpleTipoEstreno(Timestamp estrenoTimestamp, String tipoEstreno) {
@@ -143,7 +208,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
 
     @Override
     public void onItemClick(int position) {
-        Pelicula pelicula = peliculas.get(position);
+        Pelicula pelicula = peliculasFiltradas.get(position);
         Intent intent = new Intent(this, PeliculaDetalleActivity.class);
         intent.putExtra("nombre", pelicula.getNombre());
         intent.putExtra("descripcion", pelicula.getDescripcion());

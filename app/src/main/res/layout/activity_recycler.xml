@@ -72,7 +72,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_testreno"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ToggleButton
+        android:id="@+id/toggleSeries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Series"
+        android:textOff="Series"
+        android:textOn="Series"
+        android:background="@drawable/toggle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/togglePeliculas"
+        app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
+
+    <ToggleButton
+        android:id="@+id/togglePeliculas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Peliculas"
+        android:textOff="Peliculas"
+        android:textOn="Peliculas"
+        android:background="@drawable/toggle_background"
+        app:layout_constraintStart_toEndOf="@id/toggleSeries"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaNetflix"
@@ -89,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="1.0" />
 
 
 
