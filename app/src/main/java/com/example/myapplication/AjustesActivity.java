@@ -20,6 +20,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+
+import java.util.List;
 
 public class AjustesActivity extends AppCompatActivity {
 
@@ -53,10 +57,26 @@ public class AjustesActivity extends AppCompatActivity {
         cambiarcontraseña.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarDialogoCambiarContrasena();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                boolean isGoogleUser = false;
+                List<? extends UserInfo> userInfoList = user.getProviderData();
+                for (UserInfo userInfo : userInfoList) {
+                    if (GoogleAuthProvider.PROVIDER_ID.equals(userInfo.getProviderId())) {
+                        isGoogleUser = true;
+                        break;
+                    }
+                }
+
+                if (isGoogleUser) {
+                    // El usuario está registrado con Google, mostrar Toast y salir de la función
+                    Toast.makeText(AjustesActivity.this, "Usuario registrado con Google, imposible cambiar la contraseña", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    mostrarDialogoCambiarContrasena();
+                }
             }
         });
-
     }
 
     private void mostrarDialogoCambiarContrasena() {
