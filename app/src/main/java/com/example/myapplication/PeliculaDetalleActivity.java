@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
+
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,12 +25,15 @@ import java.util.Locale;
 public class PeliculaDetalleActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     Button btnCerrarsesion;
+    private YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelicula);
         btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
+        getLifecycle().addObserver(youTubePlayerView);
 
         // Inicializar sessionManager
         sessionManager = new SessionManager(this);
@@ -47,7 +56,6 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         TextView textViewEstreno = findViewById(R.id.textViewEstreno);
         TextView textViewDescripcion = findViewById(R.id.textViewDescripcion);
         TextView textViewGeneroDirector = findViewById(R.id.textViewGeneroDirector);
-        Button buttonTrailer = findViewById(R.id.buttonTrailer);
 
         // Mostrar datos
         textViewNombre.setText(nombre);
@@ -58,21 +66,34 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         // Cargar imagen de la película
         Picasso.get().load(fotoUrl).into(imageViewFoto);
 
-        // Abrir el trailer de la película en YouTube
-        buttonTrailer.setOnClickListener(v -> {
-            Intent trailerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
-            startActivity(trailerIntent);
-        });
-        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+        // Cargar video de YouTube
+        String trailerID = obtenerIdDeUrl(trailerUrl);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onClick(View v) {
-                cerrarsesion();
+            public void onReady(YouTubePlayer youTubePlayer) {
+                if (trailerID != null) {
+                    youTubePlayer.loadVideo(trailerID, 0);
+                }
             }
         });
+
+        btnCerrarsesion.setOnClickListener(v -> cerrarsesion());
     }
 
+    public String obtenerIdDeUrl(String url) {
+        String id = null;
+        String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";
 
-    public void cerrarsesion (){
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(url); // URL de YouTube
+
+        if (matcher.find()) {
+            id = matcher.group();
+        }
+        return id;
+    }
+
+    public void cerrarsesion() {
         sessionManager.cerrarSesion();
 
         // Redirigir al LoginActivity
@@ -81,14 +102,14 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
     }
 
-    public void atras (View view){
+    public void atras(View view) {
         finish();
     }
 
-    public void principal(View view){
-
+    public void principal(View view) {
         Intent intent = new Intent(PeliculaDetalleActivity.this, SelecEstreno.class);
         startActivity(intent);
         finish();
     }
 }
+
