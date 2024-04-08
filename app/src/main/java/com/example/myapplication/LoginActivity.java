@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,7 +77,55 @@ public class LoginActivity extends AppCompatActivity {
                 registrarUsuario();
             }
         });
+
+        Button resetPasswordButton = findViewById(R.id.btn_reset_password);
+        resetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
     }
+
+    private void resetPassword() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_reset_password, null);
+        EditText emailEditText = dialogView.findViewById(R.id.et_email);
+
+        // Crear el cuadro de diálogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setTitle("Restablecer Contraseña")
+                .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String email = emailEditText.getText().toString().trim();
+
+                        if (TextUtils.isEmpty(email)) {
+                            Toast.makeText(LoginActivity.this, "Por favor, introduce tu dirección de correo electrónico", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Enviar el correo electrónico para restablecer la contraseña
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(LoginActivity.this, "Se ha enviado un correo electrónico para restablecer tu contraseña", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "No se pudo enviar el correo electrónico para restablecer la contraseña. Verifica tu dirección de correo electrónico e inténtalo de nuevo.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("Cancelar", null);
+
+        // Mostrar el cuadro de diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     @Override
     protected void onStart() {
@@ -99,7 +150,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
-                // El usuario no está conectado, puede permanecer en la actividad de inicio de sesión
             }
         }
     };
@@ -147,7 +197,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // El inicio de sesión se manejará en el AuthStateListener
                         } else {
                             Toast.makeText(LoginActivity.this, "Error al iniciar sesión. Verifica tus credenciales.", Toast.LENGTH_SHORT).show();
                         }
