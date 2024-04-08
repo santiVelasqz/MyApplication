@@ -12,11 +12,14 @@ public class SelecPlataforma extends AppCompatActivity {
 
     ListView lista;
     ImageButton btnTodas;
+    Button btn_ajustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plataforma);
+        btn_ajustes = findViewById(R.id.btn_ajustes);
+
 
         lista = (ListView)findViewById(R.id.list_plata);
 
@@ -28,6 +31,14 @@ public class SelecPlataforma extends AppCompatActivity {
 
         list_plataformas_adaptador adapter = new list_plataformas_adaptador(this, itemNames, itemImages, tipoEstreno);
         lista.setAdapter(adapter);
+
+        btn_ajustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelecPlataforma.this, AjustesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void atras (View view){

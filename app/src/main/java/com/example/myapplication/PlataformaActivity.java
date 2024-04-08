@@ -37,13 +37,13 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private List<Pelicula> peliculasOriginales; // Lista que contiene todas las películas originales
     private List<Pelicula> peliculasFiltradas; // Lista que contiene las películas filtradas
     private SessionManager sessionManager;
-    private Button btnCerrarsesion;
     private String estrenoFormateado;
     private String plataforma;
     private ToggleButton toggleSeries;
     private ToggleButton togglePeliculas;
     private String tipoEstreno;
     private SearchView txtbuscar;
+    Button btn_ajustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         setContentView(R.layout.activity_recycler);
         toggleSeries = findViewById(R.id.toggleSeries);
         togglePeliculas = findViewById(R.id.togglePeliculas);
-        btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
         sessionManager = new SessionManager(this);
         txtbuscar = findViewById(R.id.txtbuscar);
         txtbuscar.requestFocus();
@@ -59,6 +58,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         TextView tvestreno = findViewById(R.id.tv_testreno);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btn_ajustes = findViewById(R.id.btn_ajustes);
+
 
         txtbuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -111,10 +112,13 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
 
         obtenerDatosFirebase();
 
-        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+
+
+        btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cerrarsesion();
+                Intent intent = new Intent(PlataformaActivity.this, AjustesActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -254,13 +258,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             adapter.setOnItemClickListener(PlataformaActivity.this);
             recyclerView.setAdapter(adapter);
         }
-    }
-
-    public void cerrarsesion() {
-        sessionManager.cerrarSesion();
-        Intent intent = new Intent(PlataformaActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public void atras(View view) {

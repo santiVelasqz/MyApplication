@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class SelecEstreno extends AppCompatActivity {
-    private SessionManager sessionManager;
-    Button btnCerrarsesion; // Declaración del botón
+    Button btn_ajustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +16,7 @@ public class SelecEstreno extends AppCompatActivity {
         setContentView(R.layout.activity_selec_estreno);
 
         // Inicialización del botón dentro de onCreate()
-        btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
-
-        // Inicializar sessionManager
-        sessionManager = new SessionManager(this);
+        btn_ajustes = findViewById(R.id.btn_ajustes);
 
         Button btnestrenados = findViewById(R.id.btn_estrenados);
         Button btnproximos = findViewById(R.id.btn_proximos);
@@ -56,23 +52,16 @@ public class SelecEstreno extends AppCompatActivity {
             }
         });
 
-        btnCerrarsesion.setOnClickListener(new View.OnClickListener() {
+        btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cerrarsesion();
+                Intent intent = new Intent(SelecEstreno.this, AjustesActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    // Método para cerrar sesión y redirigir al LoginActivity
-    public void cerrarsesion (){
-        sessionManager.cerrarSesion();
 
-        // Redirigir al LoginActivity
-        Intent intent = new Intent(SelecEstreno.this, LoginActivity.class);
-        startActivity(intent);
-        finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
-    }
 
     public void atras (View view){
         finish();

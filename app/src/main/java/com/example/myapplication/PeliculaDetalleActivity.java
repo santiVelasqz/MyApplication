@@ -24,16 +24,17 @@ import java.util.Locale;
 
 public class PeliculaDetalleActivity extends AppCompatActivity {
     private SessionManager sessionManager;
-    Button btnCerrarsesion;
     private YouTubePlayerView youTubePlayerView;
+    Button btn_ajustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelicula);
-        btnCerrarsesion = findViewById(R.id.btn_cerrarsesion);
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
+        btn_ajustes = findViewById(R.id.btn_ajustes);
+
 
         // Inicializar sessionManager
         sessionManager = new SessionManager(this);
@@ -76,8 +77,13 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
                 }
             }
         });
-
-        btnCerrarsesion.setOnClickListener(v -> cerrarsesion());
+        btn_ajustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PeliculaDetalleActivity.this, AjustesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public String obtenerIdDeUrl(String url) {
@@ -93,14 +99,6 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         return id;
     }
 
-    public void cerrarsesion() {
-        sessionManager.cerrarSesion();
-
-        // Redirigir al LoginActivity
-        Intent intent = new Intent(PeliculaDetalleActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
-    }
 
     public void atras(View view) {
         finish();

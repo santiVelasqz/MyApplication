@@ -8,6 +8,7 @@
     tools:context=".SelecEstreno">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#11AE8E"
@@ -40,23 +41,22 @@
             android:textSize="28dp" />
 
         <Button
-            android:id="@+id/btn_ajustes"
+            android:id="@+id/btn_principal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@android:color/transparent"
-            app:icon="@drawable/settingsico"
             app:iconGravity="textStart"
-            app:iconSize="28dp"/>
+            app:iconSize="28dp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_estrenados"
+        android:id="@+id/btn_cambiarcontraseña"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
         android:backgroundTint="#11AE8E"
-        android:text="Ya estrenados"
+        android:text="Cambiar contraseña"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
@@ -65,12 +65,12 @@
         app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
     <Button
-        android:id="@+id/btn_proximos"
+        android:id="@+id/btn_gestionnoti"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
         android:backgroundTint="#11AE8E"
-        android:text="Proximos estrenos"
+        android:text="Gestionar notificaciones"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -81,18 +81,34 @@
 
 
     <Button
-        android:id="@+id/btn_estrenos_hoy"
+        android:id="@+id/btn_cerrarsesion"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
         android:backgroundTint="#11AE8E"
-        android:text="Estrenos de hoy"
+        android:text="Cerrar sesión"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btn_cuenta"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#11AE8E"
+        android:text="Eliminar cuenta"
+        android:textColor="#F3EAEA"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.274" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -121,6 +137,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.40" />
+
+    <TextView
+        android:id="@+id/tv_ajustes"
+        android:layout_width="317dp"
+        android:layout_height="49dp"
+        android:text="Ajustes"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
