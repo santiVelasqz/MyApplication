@@ -99,7 +99,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                                 peliculas = peliculasPorPlataforma;
                             }
 
-                            adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas);
+                            adapter = new PlataformaAdapter(PlataformaActivity.this, peliculas, tipoEstreno);
                             adapter.setOnItemClickListener(PlataformaActivity.this);
                             recyclerView.setAdapter(adapter);
                         } else {

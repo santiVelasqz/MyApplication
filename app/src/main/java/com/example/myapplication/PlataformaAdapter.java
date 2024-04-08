@@ -23,6 +23,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
     private Context context;
     private List<Pelicula> peliculas;
     private OnItemClickListener listener;
+    private String tipoEstreno;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -32,9 +33,10 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         this.listener = listener;
     }
 
-    public PlataformaAdapter(Context context, List<Pelicula> peliculas) {
+    public PlataformaAdapter(Context context, List<Pelicula> peliculas, String tipoEstreno) {
         this.context = context;
         this.peliculas = peliculas;
+        this.tipoEstreno = tipoEstreno;
 
         if (peliculas.isEmpty()) {
             Toast.makeText(context, "Hoy no se estrena nada ):", Toast.LENGTH_SHORT).show();
@@ -43,9 +45,14 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         Collections.sort(peliculas, new Comparator<Pelicula>() {
             @Override
             public int compare(Pelicula p1, Pelicula p2) {
-                return p1.getEstreno().compareTo(p2.getEstreno());
+                if (tipoEstreno.equals("estrenados")) {
+                    return p2.getEstreno().compareTo(p1.getEstreno());  // Orden descendente para estrenos pasados
+                } else {
+                    return p1.getEstreno().compareTo(p2.getEstreno()); // Orden ascendente para próximos estrenos
+                }
             }
         });
+        notifyDataSetChanged();
     }
 
     @NonNull
