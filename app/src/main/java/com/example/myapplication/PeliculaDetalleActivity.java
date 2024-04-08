@@ -1,15 +1,26 @@
 package com.example.myapplication;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +37,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private YouTubePlayerView youTubePlayerView;
     Button btn_ajustes;
+    Button notificacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
         btn_ajustes = findViewById(R.id.btn_ajustes);
+        notificacion = findViewById(R.id.btn_notificacion);
 
 
         // Inicializar sessionManager
@@ -82,6 +95,26 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PeliculaDetalleActivity.this, AjustesActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        notificacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Suscribir al usuario al tema correspondiente
+                FirebaseMessaging.getInstance().subscribeToTopic(push)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @SuppressLint("RestrictedApi")
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                String msg = "Genial! Te avisáremos.";
+                                if (!task.isSuccessful()) {
+                                    msg = "Algo ha ido mal, inténtalo mas tarde.";
+                                }
+                                Log.d(TAG, msg);
+                                Toast.makeText(PeliculaDetalleActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
