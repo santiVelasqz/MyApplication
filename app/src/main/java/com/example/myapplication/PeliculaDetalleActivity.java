@@ -51,7 +51,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
 
         // Inicializar sessionManager
         sessionManager = new SessionManager(this);
-
+        //SE RECOGEN LOS DATOS QUE SE HAN ENVIADO DE OTRA ACTIVITY
         Intent intent = getIntent();
         String nombre = intent.getStringExtra("nombre");
         String estreno = intent.getStringExtra("estreno");
@@ -90,6 +90,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
                 }
             }
         });
+        //ESTE BOTON ENVIA AL USUARIO A UNA ACTIVITY DONDE HAY OPCIONES DE AJUSTES DE LA CUENTA
         btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +119,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             }
         });
     }
-
+    //AQUI SE OBTIENE LA URL DEL VIDEO PARA QUE SE VISUALICE DIRECTAMENTE EN LA APP
     public String obtenerIdDeUrl(String url) {
         String id = null;
         String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";

@@ -60,7 +60,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btn_ajustes = findViewById(R.id.btn_ajustes);
 
-
+        //AQUI SE TRABAJA CON EL SEARCH QUE NOS OBLIGA A UTILIZAR ESTOS MÉTODOS
         txtbuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -74,6 +74,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             }
         });
 
+        //ESTOS DOS MÉTODO SE UTILIZAN CUANDO SE CLICKA EN ALGUNO DE ELLOS, RESTAURA EL
+        //RECYCLERVIEW PARA QUE SE VEA LA LISTA O POR SERIE O POR PELICULA
         toggleSeries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -95,10 +97,10 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                 actualizarLista();
             }
         });
-
+        //AQUI SE RECOGEN LOS DATOS PARA SABER QUE QUE TIPO DE PLATAFORMA Y ESTRENO SE HA SELECCIONADO
         plataforma = getIntent().getStringExtra("plataforma");
         tipoEstreno = getIntent().getStringExtra("tipoEstreno");
-
+        //Y DEPENDIENDO SE SETEA EL TITULO DEL RECYCLER
         if (tipoEstreno.equals("estrenados")) {
             tvestreno.setText("Estrenadas");
         } else if (tipoEstreno.equals("proximos")) {
@@ -109,11 +111,11 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
 
         peliculasOriginales = new ArrayList<>();
         peliculasFiltradas = new ArrayList<>();
-
+        //SE LLAMA A ESTE METODO QUE OBTIENE LOS DATOS DE LA BASE DE DATOS
         obtenerDatosFirebase();
 
 
-
+        //ESTE BOTON ENVIA AL USUARIO A UNA ACTIVITY DONDE HAY OPCIONES DE AJUSTES DE LA CUENTA
         btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +124,9 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             }
         });
     }
-
+    //ESTE METODO PERMITE OBTENER TODOS LOS DATOS DE
+    // LOS CAMPOS QUE SE ENCUENTAN DENTRO DE LA BASE DE DATOS
+    // ASI COMO FILTAR POR TIPO DE ESTRENO
     private void obtenerDatosFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -173,7 +177,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                     }
                 });
     }
-
+    //ESTE METODO PERMITE ACTUALIZAR LA LISTA UNA VEZ SE HAYA ELEGIDO ENTRE EL BOTON DE PELICULA O SERIE
     private void actualizarLista() {
         List<Pelicula> listaFiltrada = new ArrayList<>();
 
@@ -199,7 +203,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             recyclerView.setAdapter(adapter);
         }
     }
-
+    //ESTE METODO SE REALIZA PARA VERIFICAR QUE TIPO DE ESTRENO SE ELIGE
+    // Y EN FUNCION DE ELLO, ESTE METODO SE USA PARA QUE SE CARGUEN LOS DATOS ACORDES AL TIPO DE ESTRENO
     private boolean cumpleTipoEstreno(Timestamp estrenoTimestamp, String tipoEstreno) {
         Date fechaActual = Calendar.getInstance().getTime();
         Date fechaEstreno = estrenoTimestamp.toDate();
@@ -223,7 +228,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         }
         return true;
     }
-
+    //AQUI SE ENVIAN LOS DATOS A OTRA ACTIVITY
     @Override
     public void onItemClick(Pelicula pelicula) {
         Intent intent = new Intent(this, PeliculaDetalleActivity.class);
@@ -239,7 +244,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("estreno", pelicula.getEstrenoFormateado());
         startActivity(intent);
     }
-
+    //EL PROPIO METODO LO INDICA, SE USA PARA FILTRAR LA LISTA POR NOMBRE
     private void filtrarPorNombre(String query) {
         List<Pelicula> listaFiltrada = new ArrayList<>();
 

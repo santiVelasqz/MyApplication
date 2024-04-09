@@ -17,6 +17,7 @@ public class SessionManager {
     private GoogleSignInClient mGoogleSignInClient;
     private Context context;
 
+    //CONSTRUCTOR DEL SESSIONMANAGER
     public SessionManager(Context context) {
         this.context = context;
         mAuth = FirebaseAuth.getInstance();

@@ -14,7 +14,7 @@ public class Pelicula {
     private String push;
     private String director;
     private String estrenoFormateado;
-
+    //CONSTRUCTOR DE LA CLASE PELICULA CON LA QUE SE VA A TRABAJAR
     public Pelicula(String nombre, String descripcion, String fotoUrl, String trailerUrl, String plataforma, Timestamp estreno, String genero, String tipo, String push, String director, String estrenoFormateado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -29,7 +29,7 @@ public class Pelicula {
         this.estrenoFormateado = estrenoFormateado;
 
     }
-
+    //AQUI SE AGREGAN LOS GETTERS Y SETTERS
     public String getEstrenoFormateado() {
         return estrenoFormateado;
     }

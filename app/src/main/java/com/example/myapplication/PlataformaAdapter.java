@@ -41,7 +41,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         if (peliculas.isEmpty()) {
             Toast.makeText(context, "Hoy no se estrena nada ):", Toast.LENGTH_SHORT).show();
         }
-        // Ordenar la lista por fecha
+        // ORDENAR LA LISTA POR FECHA
         Collections.sort(peliculas, new Comparator<Pelicula>() {
             @Override
             public int compare(Pelicula p1, Pelicula p2) {
@@ -64,7 +64,8 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         peliculas.addAll(listaNueva);
         notifyDataSetChanged();
     }
-
+    // ESTE MÉTODO DEL RECYCLER PERMITE SELECCIONAR CON QUE LAYOUT SE VA A TRABAJAR
+    //HACIA DONDE SE RELACIONAN LOS DATOS
     @NonNull
     @Override
     public PeliculaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,7 +73,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         View view = LayoutInflater.from(context).inflate(R.layout.item_movie_xml, parent, false);
         return new PeliculaViewHolder(view);
     }
-
+    // ESTE METODO CARGA LOS DATOS QUE SE ENVIAN AL ONCREATEVIEWHOLDER
     @Override
     public void onBindViewHolder(@NonNull PeliculaViewHolder holder, int position) {
         Pelicula pelicula = peliculas.get(position);
@@ -91,7 +92,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
     public int getItemCount() {
         return peliculas.size();
     }
-
+    //AQUI SE REFERENCIAN LOS ELEMENTOS DEL LAYOUT QUE SE VAN A UTILIZAR
     public class PeliculaViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewNombre;
         private ImageView imagen_pelicula;
@@ -99,6 +100,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         private TextView txtTipo;
         private TextView txtPlataforma;
 
+        //AQUI SE RELACIONAN LOS ELEMENTOS DEL LAYOUT
         public PeliculaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombre = itemView.findViewById(R.id.txt_movie_name);
@@ -119,7 +121,7 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
                 }
             });
         }
-
+        //AQUI SE OBTIENE EL DATO
         public void bind(Pelicula pelicula) {
             // Asignar los valores de la película a las vistas
             textViewNombre.setText(pelicula.getNombre());

@@ -31,7 +31,7 @@ public class SelecPlataforma extends AppCompatActivity {
 
         list_plataformas_adaptador adapter = new list_plataformas_adaptador(this, itemNames, itemImages, tipoEstreno);
         lista.setAdapter(adapter);
-
+        //ESTE BOTON ENVIA AL USUARIO A UNA ACTIVITY DONDE HAY OPCIONES DE AJUSTES DE LA CUENTA
         btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

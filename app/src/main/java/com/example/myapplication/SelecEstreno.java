@@ -51,7 +51,7 @@ public class SelecEstreno extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //ESTE BOTON ENVIA AL USUARIO A UNA ACTIVITY DONDE HAY OPCIONES DE AJUSTES DE LA CUENTA
         btn_ajustes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
