@@ -250,6 +250,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("plataforma", pelicula.getPlataforma());
         intent.putExtra("tipo", pelicula.getTipo());
         intent.putExtra("estreno", pelicula.getEstrenoFormateado());
+        intent.putExtra("tipoEstreno", tipoEstreno);
         startActivity(intent);
     }
     //EL PROPIO METODO LO INDICA, SE USA PARA FILTRAR LA LISTA POR NOMBRE
