@@ -41,19 +41,21 @@ public class AjustesActivity extends AppCompatActivity {
         Button gestionnotis = findViewById(R.id.btn_gestionnoti);
         Button eliminarcuenta = findViewById(R.id.btn_cuenta);
 
+        //utilizamos un listener para cerrar sesion
         cerrarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cerrarsesion();
             }
         });
-
+        //utilizamos un listener para eliminar cuenta
         eliminarcuenta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 eliminarCuenta();
             }
         });
+        //utilizamos un listener para cambiar contraseña
         cambiarcontraseña.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +80,7 @@ public class AjustesActivity extends AppCompatActivity {
             }
         });
     }
-
+// este metodo se usa como adaptador que carga un layout para proceder a cambiar la contraseña
     private void mostrarDialogoCambiarContrasena() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.dialogo_cambiar_contrasena, null);
@@ -103,7 +105,7 @@ public class AjustesActivity extends AppCompatActivity {
 
         builder.create().show();
     }
-
+// este metodo nos permite cambiar la contraseña comparando que exista el email para su cambio de contraseña
     private void cambiarContrasenaFirebase(String contrasenaActual, String nuevaContrasena) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), contrasenaActual);
@@ -134,7 +136,7 @@ public class AjustesActivity extends AppCompatActivity {
                     }
                 });
     }
-
+// metodo para eliminar la cuenta
     private void eliminarCuenta() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -153,7 +155,7 @@ public class AjustesActivity extends AppCompatActivity {
                     }
                 });
     }
-
+// metodo para cerrar sesion
     public void cerrarsesion (){
         sessionManager.cerrarSesion();
 
@@ -162,6 +164,7 @@ public class AjustesActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finalizar la actividad actual para que el usuario no pueda volver atrás
     }
+    //boton para ir a la ventana anterior
     public void atras (View view){
         finish();
     }

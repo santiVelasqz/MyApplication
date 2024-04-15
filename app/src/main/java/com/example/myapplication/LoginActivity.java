@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
+// este metodo autentica si el usuario se encuentra en la base de datos firebase para su login
     private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -153,12 +153,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-
+// aqui permite iniciar sesion con google
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
+// este metodo permite acceder con la cuenta de google
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
+// este metodo ayuda a la autenticacion con google
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
+// este metodo permite iniciar sesion
     private void iniciarSesion() {
         String correo = email.getText().toString();
         String contra = password.getText().toString();
@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
+//con este metodo permite registrar usuario
     private void registrarUsuario() {
         String correo = email.getText().toString();
         String contra = password.getText().toString();

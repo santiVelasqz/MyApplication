@@ -11,6 +11,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1")
     implementation ("com.google.firebase:firebase-messaging:23.4.1")
 
 }

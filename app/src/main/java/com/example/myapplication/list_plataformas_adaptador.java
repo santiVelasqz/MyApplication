@@ -42,7 +42,6 @@ public class list_plataformas_adaptador extends ArrayAdapter<String> {
                 context.startActivity(intent);
             }
         });
-
         return rowView;
     }
 }

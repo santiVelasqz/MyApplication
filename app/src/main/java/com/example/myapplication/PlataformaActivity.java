@@ -26,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -179,6 +181,12 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     }
     //ESTE METODO PERMITE ACTUALIZAR LA LISTA UNA VEZ SE HAYA ELEGIDO ENTRE EL BOTON DE PELICULA O SERIE
     private void actualizarLista() {
+        Collections.sort(peliculasFiltradas, new Comparator<Pelicula>() {
+            @Override
+            public int compare(Pelicula p1, Pelicula p2) {
+                return p2.getEstreno().compareTo(p1.getEstreno());
+            }
+        });
         List<Pelicula> listaFiltrada = new ArrayList<>();
 
         for (Pelicula pelicula : peliculasFiltradas) {

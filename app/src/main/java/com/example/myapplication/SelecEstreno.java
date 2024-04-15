@@ -21,7 +21,7 @@ public class SelecEstreno extends AppCompatActivity {
         Button btnestrenados = findViewById(R.id.btn_estrenados);
         Button btnproximos = findViewById(R.id.btn_proximos);
         Button btnhoy = findViewById(R.id.btn_estrenos_hoy);
-
+    // se hace una llamada cuando se hace click en el boton
         btnestrenados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +32,7 @@ public class SelecEstreno extends AppCompatActivity {
             }
         });
 
+        // se hace una llamada cuando se hace click en el boton
         btnhoy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +42,7 @@ public class SelecEstreno extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        // se hace una llamada cuando se hace click en el boton
         btnproximos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
