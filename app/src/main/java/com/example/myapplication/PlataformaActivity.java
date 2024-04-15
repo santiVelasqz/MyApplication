@@ -1,12 +1,17 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import androidx.appcompat.widget.SearchView;
+
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -46,6 +51,8 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private String tipoEstreno;
     private SearchView txtbuscar;
     Button btn_ajustes;
+    Spinner sp_gene;
+    String[] generos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btn_ajustes = findViewById(R.id.btn_ajustes);
+        sp_gene = findViewById(R.id.sp_genero);
 
         //AQUI SE TRABAJA CON EL SEARCH QUE NOS OBLIGA A UTILIZAR ESTOS MÉTODOS
         txtbuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -125,6 +133,33 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                 startActivity(intent);
             }
         });
+
+        generos = new String[]{"Genero", "Accion", "Animacion", "Aventuras", "Ciencia ficcion", "Comedia", "Documental", "Drama", "Fantastico", "Romance", "Terror", "Thriller"};
+        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, generos);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_gene.setAdapter(adaptador);
+
+        sp_gene.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = generos[position];
+                if ("Genero".equals(selectedItem)) {
+                    sp_gene.setBackgroundColor(Color.TRANSPARENT);
+                    actualizarLista();
+
+                } else{
+                    actualizarLista();
+                    sp_gene.setBackgroundColor(Color.parseColor("#11AE8E"));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No se implementa en este ejemplo
+            }
+        });
+
+
     }
     //ESTE METODO PERMITE OBTENER TODOS LOS DATOS DE
     // LOS CAMPOS QUE SE ENCUENTAN DENTRO DE LA BASE DE DATOS
@@ -190,14 +225,38 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         List<Pelicula> listaFiltrada = new ArrayList<>();
 
         for (Pelicula pelicula : peliculasFiltradas) {
-            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked())) {
+            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked() && sp_gene.getSelectedItem().toString().equals("Genero"))) {
                 listaFiltrada.add(pelicula);
-            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie")) {
+            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie") && sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo serie
                 listaFiltrada.add(pelicula);
-            } else if (togglePeliculas.isChecked() && pelicula.getTipo().equals("Pelicula")) {
+            } else if (togglePeliculas.isChecked() && pelicula.getTipo().equals("Pelicula") && sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de películas, se muestran las películas de tipo película
                 listaFiltrada.add(pelicula);
+            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+                // Si se pulsa solo el botón de series, se muestran las películas de tipo serie y con el genero seleccionado
+                String[] list_generos = pelicula.getGenero().split(", ");
+                for (int i = 0; i < list_generos.length; i++) {
+                    if (list_generos[i].equals(sp_gene.getSelectedItem().toString()) && pelicula.getTipo().equals("Serie")) {
+                        listaFiltrada.add(pelicula);
+                    }
+                }
+            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Pelicula") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+                // Si se pulsa solo el botón de series, se muestran las películas de tipo pelicula y con el genero seleccionado
+                String[] list_generos = pelicula.getGenero().split(", ");
+                for (int i = 0; i < list_generos.length; i++) {
+                    if (list_generos[i].equals(sp_gene.getSelectedItem().toString()) && pelicula.getTipo().equals("Pelicula")) {
+                        listaFiltrada.add(pelicula);
+                    }
+                }
+            } else if (!toggleSeries.isChecked() && !togglePeliculas.isChecked() && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+                // Si se pulsa solo el botón de series, se muestran las películas de tipo pelicula y con el genero seleccionado
+                String[] list_generos = pelicula.getGenero().split(", ");
+                for (int i = 0; i < list_generos.length; i++) {
+                    if (list_generos[i].equals(sp_gene.getSelectedItem().toString())) {
+                        listaFiltrada.add(pelicula);
+                    }
+                }
             }
         }
 

@@ -85,12 +85,12 @@
                 android:id="@+id/toggleSeries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/toggle_background"
                 android:text="Series"
                 android:textOff="Series"
                 android:textOn="Series"
-                app:layout_constraintEnd_toStartOf="@id/togglePeliculas"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
 
@@ -98,13 +98,13 @@
                 android:id="@+id/togglePeliculas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/toggle_background"
                 android:text="Peliculas"
                 android:textOff="Peliculas"
                 android:textOn="Peliculas"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/toggleSeries"
+                app:layout_constraintStart_toEndOf="@+id/toggleSeries"
                 app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -115,6 +115,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.64"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
+
+            <Spinner
+                android:id="@+id/sp_genero"
+                android:layout_width="127dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
+                app:layout_constraintStart_toEndOf="@+id/togglePeliculas"
                 app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
 
