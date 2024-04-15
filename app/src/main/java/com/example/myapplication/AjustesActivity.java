@@ -38,7 +38,6 @@ public class AjustesActivity extends AppCompatActivity {
 
         Button cambiarcontraseña = findViewById(R.id.btn_cambiarcontraseña);
         Button cerrarsesion = findViewById(R.id.btn_cerrarsesion);
-        Button gestionnotis = findViewById(R.id.btn_gestionnoti);
         Button eliminarcuenta = findViewById(R.id.btn_cuenta);
 
         //utilizamos un listener para cerrar sesion
