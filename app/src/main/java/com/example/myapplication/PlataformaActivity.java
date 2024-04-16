@@ -46,20 +46,19 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
     private SessionManager sessionManager;
     private String estrenoFormateado;
     private String plataforma;
-    private ToggleButton toggleSeries;
-    private ToggleButton togglePeliculas;
+
     private String tipoEstreno;
     private SearchView txtbuscar;
     Button btn_ajustes;
     Spinner sp_gene;
+    Spinner sp_tip;
     String[] generos;
+    String[] tipos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
-        toggleSeries = findViewById(R.id.toggleSeries);
-        togglePeliculas = findViewById(R.id.togglePeliculas);
         sessionManager = new SessionManager(this);
         txtbuscar = findViewById(R.id.txtbuscar);
         txtbuscar.requestFocus();
@@ -69,6 +68,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btn_ajustes = findViewById(R.id.btn_ajustes);
         sp_gene = findViewById(R.id.sp_genero);
+        sp_tip = findViewById(R.id.sp_tipo);
 
         //AQUI SE TRABAJA CON EL SEARCH QUE NOS OBLIGA A UTILIZAR ESTOS MÉTODOS
         txtbuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -84,29 +84,6 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             }
         });
 
-        //ESTOS DOS MÉTODO SE UTILIZAN CUANDO SE CLICKA EN ALGUNO DE ELLOS, RESTAURA EL
-        //RECYCLERVIEW PARA QUE SE VEA LA LISTA O POR SERIE O POR PELICULA
-        toggleSeries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && togglePeliculas.isChecked()) {
-                    // Si se activa el botón de series y el de películas está activado, desactivar el de películas
-                    togglePeliculas.setChecked(false);
-                }
-                actualizarLista();
-            }
-        });
-
-        togglePeliculas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && toggleSeries.isChecked()) {
-                    // Si se activa el botón de películas y el de series está activado, desactivar el de series
-                    toggleSeries.setChecked(false);
-                }
-                actualizarLista();
-            }
-        });
         //AQUI SE RECOGEN LOS DATOS PARA SABER QUE QUE TIPO DE PLATAFORMA Y ESTRENO SE HA SELECCIONADO
         plataforma = getIntent().getStringExtra("plataforma");
         tipoEstreno = getIntent().getStringExtra("tipoEstreno");
@@ -142,7 +119,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         sp_gene.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = generos[position];
+                String selectedItem = parent.getItemAtPosition(position).toString();
                 if ("Genero".equals(selectedItem)) {
                     sp_gene.setBackgroundColor(Color.TRANSPARENT);
                     actualizarLista();
@@ -158,6 +135,31 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                 // No se implementa en este ejemplo
             }
         });
+
+        tipos = new String[]{"Todos", "Pelicula", "Serie"};
+        ArrayAdapter<String> adaptador1 = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tipos);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_tip.setAdapter(adaptador1);
+
+        sp_tip.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString(); // Obtener el elemento seleccionado del adaptador
+                if ("Todos".equals(selectedItem)) {
+                    sp_tip.setBackgroundColor(Color.TRANSPARENT);
+                    actualizarLista();
+                } else {
+                    actualizarLista();
+                    sp_tip.setBackgroundColor(Color.parseColor("#11AE8E"));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No se implementa en este ejemplo
+            }
+        });
+
 
 
     }
@@ -225,15 +227,15 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         List<Pelicula> listaFiltrada = new ArrayList<>();
 
         for (Pelicula pelicula : peliculasFiltradas) {
-            if ((!toggleSeries.isChecked() && !togglePeliculas.isChecked() && sp_gene.getSelectedItem().toString().equals("Genero"))) {
+            if (sp_tip.getSelectedItem().toString().equals("Todos") && sp_gene.getSelectedItem().toString().equals("Genero")) {
                 listaFiltrada.add(pelicula);
-            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie") && sp_gene.getSelectedItem().toString().equals("Genero")) {
+            } else if (sp_tip.getSelectedItem().toString().equals("Serie") && pelicula.getTipo().equals("Serie") && sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo serie
                 listaFiltrada.add(pelicula);
-            } else if (togglePeliculas.isChecked() && pelicula.getTipo().equals("Pelicula") && sp_gene.getSelectedItem().toString().equals("Genero")) {
+            } else if (sp_tip.getSelectedItem().toString().equals("Pelicula") && pelicula.getTipo().equals("Pelicula") && sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de películas, se muestran las películas de tipo película
                 listaFiltrada.add(pelicula);
-            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Serie") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+            } else if (sp_tip.getSelectedItem().toString().equals("Serie") && pelicula.getTipo().equals("Serie") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo serie y con el genero seleccionado
                 String[] list_generos = pelicula.getGenero().split(", ");
                 for (int i = 0; i < list_generos.length; i++) {
@@ -241,7 +243,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                         listaFiltrada.add(pelicula);
                     }
                 }
-            } else if (toggleSeries.isChecked() && pelicula.getTipo().equals("Pelicula") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+            } else if (sp_tip.getSelectedItem().toString().equals("Pelicula") && pelicula.getTipo().equals("Pelicula") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo pelicula y con el genero seleccionado
                 String[] list_generos = pelicula.getGenero().split(", ");
                 for (int i = 0; i < list_generos.length; i++) {
@@ -249,7 +251,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
                         listaFiltrada.add(pelicula);
                     }
                 }
-            } else if (!toggleSeries.isChecked() && !togglePeliculas.isChecked() && !sp_gene.getSelectedItem().toString().equals("Genero")) {
+            } else if (sp_tip.getSelectedItem().toString().equals("Todos") && !sp_gene.getSelectedItem().toString().equals("Genero")) {
                 // Si se pulsa solo el botón de series, se muestran las películas de tipo pelicula y con el genero seleccionado
                 String[] list_generos = pelicula.getGenero().split(", ");
                 for (int i = 0; i < list_generos.length; i++) {

@@ -78,34 +78,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.375"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_testreno"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ToggleButton
-                android:id="@+id/toggleSeries"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/toggle_background"
-                android:text="Series"
-                android:textOff="Series"
-                android:textOn="Series"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
-
-            <ToggleButton
-                android:id="@+id/togglePeliculas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/toggle_background"
-                android:text="Peliculas"
-                android:textOff="Peliculas"
-                android:textOn="Peliculas"
-                app:layout_constraintStart_toEndOf="@+id/toggleSeries"
-                app:layout_constraintTop_toBottomOf="@id/txtbuscar" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listaNetflix"
@@ -119,12 +92,22 @@
 
             <Spinner
                 android:id="@+id/sp_genero"
-                android:layout_width="127dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="173dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.444"
-                app:layout_constraintStart_toEndOf="@+id/togglePeliculas"
+                app:layout_constraintHorizontal_bias="0.878"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
+
+            <Spinner
+                android:id="@+id/sp_tipo"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.113"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
 
