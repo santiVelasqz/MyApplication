@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#11AE8E"
+        android:background="#474747"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             android:background="@android:color/transparent"
             app:icon="@drawable/settingsico"
             app:iconGravity="textStart"
-            app:iconSize="28dp"/>
+            app:iconSize="28dp" />
     </LinearLayout>
 
     <Button
@@ -53,7 +53,7 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
-        android:backgroundTint="#11AE8E"
+        android:backgroundTint="#474747"
         android:text="Ya estrenados"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
@@ -67,7 +67,7 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
-        android:backgroundTint="#11AE8E"
+        android:backgroundTint="#474747"
         android:text="Proximos estrenos"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
@@ -83,7 +83,7 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="220dp"
         android:layout_height="55dp"
-        android:backgroundTint="#11AE8E"
+        android:backgroundTint="#474747"
         android:text="Esta semana"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
