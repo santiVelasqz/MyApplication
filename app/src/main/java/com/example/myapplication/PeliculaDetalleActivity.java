@@ -62,6 +62,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         String tipo = intent.getStringExtra("tipo");
         String plataforma = intent.getStringExtra("plataforma");
         String push = intent.getStringExtra("push");
+        String tipoEstreno = getIntent().getStringExtra("tipoEstreno");
         final String trailerUrl = intent.getStringExtra("trailerUrl");
 
         // Referencias de vistas
@@ -98,6 +99,12 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if ("proximos".equals(tipoEstreno)) {
+            notificacion.setVisibility(View.VISIBLE);
+        } else {
+            notificacion.setVisibility(View.GONE);
+        }
 
         notificacion.setOnClickListener(new View.OnClickListener() {
             @Override

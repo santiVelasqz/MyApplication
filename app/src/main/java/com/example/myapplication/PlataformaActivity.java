@@ -93,7 +93,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         } else if (tipoEstreno.equals("proximos")) {
             tvestreno.setText("Próximos estrenos");
         } else if (tipoEstreno.equals("hoy")) {
-            tvestreno.setText("¡Se estrena hoy!");
+            tvestreno.setText("Estrenos de la semana");
         }
 
         peliculasOriginales = new ArrayList<>();
@@ -291,9 +291,10 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
             Calendar calEstreno = Calendar.getInstance();
             calEstreno.setTime(estrenoTimestamp.toDate());
             Calendar calHoy = Calendar.getInstance();
-            return calEstreno.get(Calendar.YEAR) == calHoy.get(Calendar.YEAR) &&
-                    calEstreno.get(Calendar.MONTH) == calHoy.get(Calendar.MONTH) &&
-                    calEstreno.get(Calendar.DAY_OF_MONTH) == calHoy.get(Calendar.DAY_OF_MONTH);
+            Calendar calSieteDiasDespues = Calendar.getInstance();
+            calSieteDiasDespues.add(Calendar.DAY_OF_MONTH, 7);
+            // Comprueba si la fecha del estreno está dentro de los próximos 7 días
+            return calEstreno.after(calHoy) && calEstreno.before(calSieteDiasDespues);
         }
         return true;
     }
@@ -311,6 +312,7 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         intent.putExtra("plataforma", pelicula.getPlataforma());
         intent.putExtra("tipo", pelicula.getTipo());
         intent.putExtra("estreno", pelicula.getEstrenoFormateado());
+        intent.putExtra("tipoEstreno", tipoEstreno);
         startActivity(intent);
     }
     //EL PROPIO METODO LO INDICA, SE USA PARA FILTRAR LA LISTA POR NOMBRE
