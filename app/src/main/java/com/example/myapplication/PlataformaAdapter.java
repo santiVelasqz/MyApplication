@@ -38,9 +38,6 @@ public class PlataformaAdapter extends RecyclerView.Adapter<PlataformaAdapter.Pe
         this.peliculas = peliculas;
         this.tipoEstreno = tipoEstreno;
 
-        if (peliculas.isEmpty()) {
-            Toast.makeText(context, "Hoy no se estrena nada ):", Toast.LENGTH_SHORT).show();
-        }
         // ORDENAR LA LISTA POR FECHA
         Collections.sort(peliculas, new Comparator<Pelicula>() {
             @Override

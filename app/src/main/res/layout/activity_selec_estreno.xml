@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo3"
+    android:background="@drawable/fondocirculos"
     tools:context=".SelecEstreno">
 
     <LinearLayout
@@ -84,7 +84,7 @@
         android:layout_width="220dp"
         android:layout_height="55dp"
         android:backgroundTint="#11AE8E"
-        android:text="Estrenos de hoy"
+        android:text="Esta semana"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"

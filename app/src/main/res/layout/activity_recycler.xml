@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo3"
+    android:background="@drawable/fondocirculos"
     tools:context=".PlataformaActivity">
 
     <ScrollView
@@ -110,7 +110,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listaNetflix"
                 android:layout_width="386dp"
-                android:layout_height="466dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="88dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.64"

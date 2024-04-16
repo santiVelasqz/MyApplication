@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo3"
+    android:background="@drawable/fondocirculos"
     tools:context=".SelecEstreno">
 
     <LinearLayout
@@ -73,10 +73,10 @@
         android:text="Cerrar sesión"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/btn_cuenta"
@@ -87,8 +87,8 @@
         android:text="Eliminar cuenta"
         android:textColor="#F3EAEA"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
