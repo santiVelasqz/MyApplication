@@ -31,9 +31,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
-
-        // Aquí puedes enviar el token de registro del dispositivo a tu servidor, si es necesario
-        // Esto te permitirá enviar notificaciones al dispositivo
     }
 
     private void mostrarNotificacion(String title, String messageBody) {
