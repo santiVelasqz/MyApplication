@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,111 +8,101 @@
     android:background="@drawable/fondocirculos"
     tools:context=".PlataformaActivity">
 
-    <ScrollView
+    <!-- Barra superior -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="56dp"
+        android:background="#11AE8E"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            android:onClick="atras"
+            app:icon="@drawable/flecha_atras_removebg_preview"
+            app:iconGravity="textStart"
+            app:iconSize="28dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="#11AE8E"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@android:color/transparent"
+            android:onClick="principal"
+            android:text="MovieStream"
+            android:textSize="28dp" />
 
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@android:color/transparent"
-                    android:onClick="atras"
-                    app:icon="@drawable/flecha_atras_removebg_preview"
-                    app:iconGravity="textStart"
-                    app:iconSize="28dp" />
+        <Button
+            android:id="@+id/btn_ajustes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            app:icon="@drawable/settingsico"
+            app:iconGravity="textStart"
+            app:iconSize="28dp"/>
+    </LinearLayout>
 
+    <!-- Texto "Tipo de estreno" -->
+    <TextView
+        android:id="@+id/tv_testreno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="Tipo de estreno"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:background="@android:color/transparent"
-                    android:onClick="principal"
-                    android:text="MovieStream"
-                    android:textSize="28dp" />
+    <!-- Barra de búsqueda -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/txtbuscar"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
 
-                <Button
-                    android:id="@+id/btn_ajustes"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@android:color/transparent"
-                    app:icon="@drawable/settingsico"
-                    app:iconGravity="textStart"
-                    app:iconSize="28dp"/>
-            </LinearLayout>
+    <!-- Spinner para el género -->
+    <Spinner
+        android:id="@+id/sp_genero"
+        android:layout_width="173dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
-            <TextView
-                android:id="@+id/tv_testreno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:text="Tipo de estreno"
-                android:textColor="@color/black"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <!-- Spinner para el tipo de estreno -->
+    <Spinner
+        android:id="@+id/sp_tipo"
+        android:layout_width="165dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/txtbuscar"
-                android:layout_width="379dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.375"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listaNetflix"
-                android:layout_width="386dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="88dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.64"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
-
-            <Spinner
-                android:id="@+id/sp_genero"
-                android:layout_width="173dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.878"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
-
-            <Spinner
-                android:id="@+id/sp_tipo"
-                android:layout_width="165dp"
-                android:layout_height="39dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.113"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    <!-- RecyclerView para mostrar datos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listaNetflix"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sp_tipo"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
