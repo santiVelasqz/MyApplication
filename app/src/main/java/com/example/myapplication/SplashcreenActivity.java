@@ -17,6 +17,7 @@ public class SplashcreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashcreen);
 
+        NotificationHelper.createNotificationChannel(this);
         // Retrasar la apertura de LoginActivity durante 2 segundos
         new Handler().postDelayed(new Runnable() {
             @Override
