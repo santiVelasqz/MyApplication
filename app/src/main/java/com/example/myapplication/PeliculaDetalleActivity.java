@@ -3,6 +3,7 @@ package com.example.myapplication;
 import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,6 +113,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         notificacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                guardarSuscripciones(nombre, push);
                 // Suscribir al usuario al tema correspondiente
                 FirebaseMessaging.getInstance().subscribeToTopic(push)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -138,6 +143,22 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             id = matcher.group();
         }
         return id;
+    }
+    private void guardarSuscripciones(String nombre, String push) {
+        Context context = getApplicationContext();
+        String contenido = nombre + ":" + push + "\n";
+
+        try {
+            // Abrir el archivo notificaciones.txt en modo append (para añadir al final)
+            FileWriter fileWriter = new FileWriter(context.getFilesDir() + "/" + "notificaciones.txt", true);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(contenido);
+            printWriter.close();
+            Toast.makeText(this, "Suscripción guardada correctamente", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "Error al guardar las suscripciones", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
 

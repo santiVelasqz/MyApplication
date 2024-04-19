@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.et_contra);
         btngoogle = findViewById(R.id.btn_google);
 
+        verificarArchivoSuscripciones();
+        
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -85,6 +92,22 @@ public class LoginActivity extends AppCompatActivity {
                 resetPassword();
             }
         });
+    }
+
+    private void verificarArchivoSuscripciones() {
+        Context context = getApplicationContext();
+        File file = new File(context.getFilesDir(), "notificaciones.txt");
+
+        if (!file.exists()) {
+            try {
+                // Crear el archivo si no existe
+                FileOutputStream fos = context.openFileOutput("notificaciones.txt", Context.MODE_PRIVATE);
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al crear el archivo de suscripciones", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void resetPassword() {
