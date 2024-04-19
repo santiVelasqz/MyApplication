@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -183,6 +184,7 @@ public class AjustesActivity extends AppCompatActivity {
         ListView listView = new ListView(this);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, suscripciones);
         listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE); // Permitir selección múltiple
         builder.setView(listView);
 
         // Configurar el botón de desuscribirse
@@ -190,9 +192,10 @@ public class AjustesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Obtener los temas seleccionados para desuscribirse
-                int count = listView.getCount();
-                for (int i = 0; i < count; i++) {
-                    if (listView.isItemChecked(i)) {
+                SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
+                int itemCount = listView.getCount();
+                for (int i = 0; i < itemCount; i++) {
+                    if (checkedItems.get(i)) {
                         String tema = suscripciones.get(i);
                         // Desuscribirse del tema en Firebase Messaging
                         FirebaseMessaging.getInstance().unsubscribeFromTopic(tema);
@@ -204,9 +207,17 @@ public class AjustesActivity extends AppCompatActivity {
             }
         });
 
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss(); // Cerrar el diálogo
+            }
+        });
+
         // Mostrar el diálogo
         builder.show();
     }
+
 
     // Método para obtener las suscripciones guardadas en el archivo notificaciones.txt
     private ArrayList<String> obtenerSuscripciones() {

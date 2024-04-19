@@ -154,9 +154,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(contenido);
             printWriter.close();
-            Toast.makeText(this, "Suscripción guardada correctamente", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Error al guardar las suscripciones", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

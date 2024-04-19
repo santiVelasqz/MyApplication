@@ -20,7 +20,10 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
 
-        <!-- Servicio de mensajería -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_notification_channel" />
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
