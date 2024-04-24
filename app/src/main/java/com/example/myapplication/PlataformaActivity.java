@@ -112,22 +112,13 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         });
 
         generos = new String[]{"Genero", "Accion", "Animacion", "Aventuras", "Ciencia ficcion", "Comedia", "Documental", "Drama", "Fantastico", "Romance", "Terror", "Thriller"};
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, generos);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this,R.layout.spinner_item, generos);
         sp_gene.setAdapter(adaptador);
 
         sp_gene.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if ("Genero".equals(selectedItem)) {
-                    sp_gene.setBackgroundColor(Color.TRANSPARENT);
-                    actualizarLista();
-
-                } else{
-                    actualizarLista();
-                    sp_gene.setBackgroundColor(Color.parseColor("#11AE8E"));
-                }
+                actualizarLista();
             }
 
             @Override
@@ -137,21 +128,13 @@ public class PlataformaActivity extends AppCompatActivity implements PlataformaA
         });
 
         tipos = new String[]{"Todos", "Pelicula", "Serie"};
-        ArrayAdapter<String> adaptador1 = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tipos);
-        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adaptador1 = new ArrayAdapter<>(this, R.layout.spinner_item, tipos);
         sp_tip.setAdapter(adaptador1);
 
         sp_tip.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString(); // Obtener el elemento seleccionado del adaptador
-                if ("Todos".equals(selectedItem)) {
-                    sp_tip.setBackgroundColor(Color.TRANSPARENT);
-                    actualizarLista();
-                } else {
-                    actualizarLista();
-                    sp_tip.setBackgroundColor(Color.parseColor("#11AE8E"));
-                }
+                actualizarLista();
             }
 
             @Override

@@ -10,6 +10,7 @@
 
     <!-- Barra superior -->
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#11AE8E"
@@ -45,7 +46,7 @@
             android:background="@android:color/transparent"
             app:icon="@drawable/settingsico"
             app:iconGravity="textStart"
-            app:iconSize="28dp"/>
+            app:iconSize="28dp" />
     </LinearLayout>
 
     <!-- Texto "Tipo de estreno" -->
@@ -67,42 +68,50 @@
         android:id="@+id/txtbuscar"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/stylo_buscador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
 
     <!-- Spinner para el género -->
-    <Spinner
-        android:id="@+id/sp_genero"
-        android:layout_width="173dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.878"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
     <!-- Spinner para el tipo de estreno -->
-    <Spinner
-        android:id="@+id/sp_tipo"
-        android:layout_width="165dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbuscar" />
 
     <!-- RecyclerView para mostrar datos -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaNetflix"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="373dp"
+        android:layout_height="461dp"
+        android:layout_marginTop="186dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sp_tipo"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <Spinner
+        android:id="@+id/sp_tipo"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/listaNetflix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.120"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbuscar"
+        app:layout_constraintVertical_bias="0.500" />
+
+    <Spinner
+        android:id="@+id/sp_genero"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/listaNetflix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.880"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbuscar"
+        app:layout_constraintVertical_bias="0.500"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
