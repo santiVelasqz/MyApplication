@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import android.os.Bundle;
+import android.util.Log;
 
 public class SplashcreenActivity extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class SplashcreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashcreen);
 
+        Log.d("SplashcreenActivity", "Creating notification channel...");
         NotificationHelper.createNotificationChannel(this);
         // Retrasar la apertura de LoginActivity durante 2 segundos
         new Handler().postDelayed(new Runnable() {
