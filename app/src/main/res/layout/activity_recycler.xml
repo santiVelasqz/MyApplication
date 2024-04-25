@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondocirculos"
+    android:background="@drawable/colorido"
     tools:context=".PlataformaActivity">
 
     <!-- Barra superior -->
@@ -13,7 +13,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#11AE8E"
+        android:background="#323130"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,6 +36,7 @@
             android:background="@android:color/transparent"
             android:onClick="principal"
             android:text="MovieStream"
+            android:textColor="@color/white"
             android:textSize="28dp" />
 
         <Button

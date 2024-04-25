@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondocirculos"
+    android:background="@drawable/colorido"
     tools:context=".SelecPlataforma">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#11AE8E"
+        android:background="#323130"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
