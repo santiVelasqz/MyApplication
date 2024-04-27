@@ -6,7 +6,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/colorido"
     tools:context=".SelecPlataforma">
+
+    <TextView
+        android:id="@+id/tv_platafor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="Escoge tu plataforma"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#323130"
@@ -47,7 +62,7 @@
             android:background="@android:color/transparent"
             app:icon="@drawable/settingsico"
             app:iconGravity="textStart"
-            app:iconSize="28dp"/>
+            app:iconSize="28dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -57,15 +72,25 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.20" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_plata"
-        android:layout_width="229dp"
-        android:layout_height="579dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="45dp"
+        android:layout_width="347dp"
+        android:layout_height="346dp"
+        android:layout_marginTop="180dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="219dp"
+        android:layout_height="218dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21"
+        app:srcCompat="@drawable/logo_removebg_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

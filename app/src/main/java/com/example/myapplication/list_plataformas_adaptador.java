@@ -1,16 +1,17 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class list_plataformas_adaptador extends ArrayAdapter<String> {
+public class list_plataformas_adaptador extends RecyclerView.Adapter<list_plataformas_adaptador.ViewHolder> {
 
     private final Context context;
     private final String[] itemNames;
@@ -19,21 +20,23 @@ public class list_plataformas_adaptador extends ArrayAdapter<String> {
 
     //CONSTRUCTOR DE LA LISTA DEL ADAPTADOR
     public list_plataformas_adaptador(@NonNull Context context, String[] itemNames, Integer[] itemImages, String tipoEstreno) {
-        super(context, R.layout.item_plataforma, itemNames);
         this.context = context;
         this.itemNames = itemNames;
         this.itemImages = itemImages;
         this.tipoEstreno = tipoEstreno;
     }
-    // AQUI SE REFERENCIA A QUE LAYOUT SE VAN A ENVIAR LOS DATOS
-    public View getView(final int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View rowView = inflater.inflate(R.layout.item_plataforma, null, true);
 
-        ImageView itemImage = rowView.findViewById(R.id.ig_plataforma);
-        itemImage.setImageResource(itemImages[position]);
-        // AQUI SE ENVIAN LOS DATOS DE LA PLATAFORMA Y EL TIPO DE ESTRENO
-        rowView.setOnClickListener(new View.OnClickListener() {
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plataforma, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.itemImage.setImageResource(itemImages[position]);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlataformaActivity.class);
@@ -42,6 +45,19 @@ public class list_plataformas_adaptador extends ArrayAdapter<String> {
                 context.startActivity(intent);
             }
         });
-        return rowView;
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemNames.length;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView itemImage;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemImage = itemView.findViewById(R.id.ig_plataforma);
+        }
     }
 }
