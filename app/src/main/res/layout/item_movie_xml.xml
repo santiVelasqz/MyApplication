@@ -1,52 +1,66 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/imag_pelic"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_marginEnd="16dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:background="@color/camel2"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txt_movie_name"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imag_pelic"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Movie Name"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginEnd="16dp" />
 
-        <TextView
-            android:id="@+id/tv_fecha"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/txt_tipo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo"
-            android:textSize="14sp" />
-        <TextView
-            android:id="@+id/txt_plataforma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Plataforma"
-            android:textSize="14sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_movie_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txt_plataforma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

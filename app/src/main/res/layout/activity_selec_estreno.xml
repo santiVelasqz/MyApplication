@@ -8,15 +8,12 @@
     tools:context=".SelecEstreno">
 
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#323130"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/button4"
@@ -24,10 +21,6 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@android:color/transparent"/>
-            <!--app:icon="@drawable/flecha_atras_removebg_preview"
-            app:iconGravity="textStart"
-            app:iconSize="28dp"-->
-
 
         <Button
             android:id="@+id/button"
@@ -37,7 +30,7 @@
             android:background="@android:color/transparent"
             android:text="MovieStream"
             android:textColor="@color/white"
-            android:textSize="28dp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btn_ajustes"
@@ -48,86 +41,58 @@
             app:icon="@drawable/settingsico"
             android:textColor="@color/black"
             app:iconGravity="textStart"
-            app:iconSize="28dp" />
+            app:iconSize="24dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_estrenados"
         style="?attr/materialButtonOutlinedStyle"
-        app:cornerRadius="20dp"
-        app:strokeColor="@color/black"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:textSize="20dp"
+        android:layout_marginTop="80dp"
         android:text="Ya estrenados"
         android:textColor="#090909"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1"  />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:strokeColor="@color/black" />
 
     <Button
         android:id="@+id/btn_proximos"
         style="?attr/materialButtonOutlinedStyle"
-        app:cornerRadius="20dp"
-        app:strokeColor="@color/black"
         android:layout_width="220dp"
         android:layout_height="60dp"
-        android:text="Proximos estrenos"
+        android:layout_marginTop="104dp"
+        android:text="Próximos estrenos"
         android:textColor="#090909"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textSize="19dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
+        app:layout_constraintTop_toBottomOf="@id/btn_estrenados"
+        app:strokeColor="@color/black" />
 
     <Button
         android:id="@+id/btn_estrenos_hoy"
         style="?attr/materialButtonOutlinedStyle"
-        app:cornerRadius="20dp"
-        app:strokeColor="@color/black"
         android:layout_width="220dp"
         android:layout_height="60dp"
+        android:layout_marginTop="128dp"
         android:text="Esta semana"
         android:textColor="#090909"
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.60" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
-
+        app:layout_constraintTop_toBottomOf="@id/btn_proximos"
+        app:strokeColor="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
