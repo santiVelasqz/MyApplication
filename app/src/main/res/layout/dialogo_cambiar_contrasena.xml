@@ -11,20 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña actual"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:drawablePadding="8dp" />
 
     <EditText
         android:id="@+id/et_nueva_contrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nueva contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:drawablePadding="8dp" />
 
     <EditText
         android:id="@+id/et_confirmar_nueva_contrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirmar nueva contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:drawablePadding="8dp" />
 
 </LinearLayout>
