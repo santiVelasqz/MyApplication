@@ -75,10 +75,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_testreno" />
 
-    <!-- Spinner para el género -->
-
-    <!-- Spinner para el tipo de estreno -->
-
     <!-- RecyclerView para mostrar datos -->
 
     <androidx.recyclerview.widget.RecyclerView
@@ -90,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
+    <!-- Spinner para el tipo de estreno -->
     <Spinner
         android:id="@+id/sp_tipo"
         android:layout_width="140dp"
@@ -103,6 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtbuscar"
         app:layout_constraintVertical_bias="0.500" />
 
+    <!-- Spinner para el género -->
     <Spinner
         android:id="@+id/sp_genero"
         android:layout_width="140dp"
