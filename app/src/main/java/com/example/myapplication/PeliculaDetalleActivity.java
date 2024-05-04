@@ -5,6 +5,7 @@ import static androidx.fragment.app.FragmentManager.TAG;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ import java.util.Locale;
 public class PeliculaDetalleActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private YouTubePlayerView youTubePlayerView;
+    private boolean isNotificacionEnabled = true;
     Button btn_ajustes;
     Button notificacion;
 
@@ -126,6 +128,19 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
                                 }
                                 Log.d(TAG, msg);
                                 Toast.makeText(PeliculaDetalleActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+                                // Cambiar color y texto del botón
+                                if (task.isSuccessful()) {
+                                    if (isNotificacionEnabled) {
+                                        notificacion.setBackgroundColor(Color.parseColor("#FFA500")); // Cambiar color a naranja
+                                        ((Button) v).setText("Quitar aviso"); // Cambiar texto a "Quitar aviso"
+                                        isNotificacionEnabled = false;
+                                    } else {
+                                        notificacion.setBackgroundColor(Color.TRANSPARENT); // Cambiar de nuevo a transparente
+                                        ((Button) v).setText("¡Avísame!"); // Cambiar texto a "¡Avísame!"
+                                        isNotificacionEnabled = true;
+                                    }
+                                }
                             }
                         });
             }
