@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,13 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,7 +166,7 @@ public class AjustesActivity extends AppCompatActivity {
 
     private void mostrarDialogoGestionNotificaciones() {
         // Obtener las suscripciones guardadas
-        ArrayList<String> suscripciones = obtenerSuscripciones();
+        ArrayList<String> suscripciones = SuscripcionUtil.obtenerSuscripciones(this);
 
         // Crear un diálogo personalizado
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -191,19 +183,7 @@ public class AjustesActivity extends AppCompatActivity {
         builder.setPositiveButton("Desuscribirse", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Obtener los temas seleccionados para desuscribirse
-                SparseBooleanArray checkedItems = listView.getCheckedItemPositions();
-                int itemCount = listView.getCount();
-                for (int i = 0; i < itemCount; i++) {
-                    if (checkedItems.get(i)) {
-                        String tema = suscripciones.get(i);
-                        // Desuscribirse del tema en Firebase Messaging
-                        FirebaseMessaging.getInstance().unsubscribeFromTopic(tema);
-                        // Eliminar la suscripción del archivo de notificaciones
-                        eliminarSuscripcion(tema);
-                        Toast.makeText(AjustesActivity.this, "Desuscripción exitosa de " + tema, Toast.LENGTH_SHORT).show();
-                    }
-                }
+                SuscripcionUtil.desuscribirseDeTemasSeleccionados(AjustesActivity.this, listView, suscripciones);;
             }
         });
 
@@ -219,64 +199,6 @@ public class AjustesActivity extends AppCompatActivity {
     }
 
 
-    // Método para obtener las suscripciones guardadas en el archivo notificaciones.txt
-    private ArrayList<String> obtenerSuscripciones() {
-        ArrayList<String> suscripciones = new ArrayList<>();
-        try {
-            // Obtener la ruta del archivo notificaciones.txt
-            String filePath = getApplicationContext().getFilesDir() + "/" + "notificaciones.txt";
-            File file = new File(filePath);
-            // Verificar si el archivo existe
-            if (file.exists()) {
-                // Leer el contenido del archivo
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Separar el nombre y el push
-                    String[] parts = line.split(":");
-                    if (parts.length >= 2) {
-                        suscripciones.add(parts[0]);
-                    }
-                }
-                reader.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return suscripciones;
-    }
-
-    // Método para eliminar una suscripción del archivo notificaciones.txt
-    private void eliminarSuscripcion(String tema) {
-        try {
-            // Obtener la ruta del archivo notificaciones.txt
-            String filePath = getApplicationContext().getFilesDir() + "/" + "notificaciones.txt";
-            File file = new File(filePath);
-            // Verificar si el archivo existe
-            if (file.exists()) {
-                // Leer el contenido del archivo y eliminar la línea correspondiente al tema
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                ArrayList<String> lines = new ArrayList<>();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Si la línea contiene el tema, no la añadimos a la lista de líneas
-                    if (!line.startsWith(tema + ":")) {
-                        lines.add(line);
-                    }
-                }
-                reader.close();
-
-                // Escribir el contenido actualizado al archivo
-                FileWriter writer = new FileWriter(file);
-                for (String l : lines) {
-                    writer.write(l + "\n");
-                }
-                writer.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 // metodo para cerrar sesion
     public void cerrarsesion (){

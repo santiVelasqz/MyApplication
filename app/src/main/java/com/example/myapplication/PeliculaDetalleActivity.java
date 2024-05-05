@@ -125,47 +125,16 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isNotificacionEnabled) {
                     // Si el usuario está suscrito, desuscribirlo
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic(push)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    String msg;
-                                    if (task.isSuccessful()) {
-                                        msg = "Te has desuscrito.";
-                                        // Cambiar color y texto del botón
-                                        notificacion.setBackgroundColor(Color.TRANSPARENT); // Cambiar de nuevo a transparente
-                                        ((Button) v).setText("¡Avísame!"); // Cambiar texto a "¡Avísame!"
-                                        eliminarSuscripcion(push);
-                                        isNotificacionEnabled = false; // El usuario ya no está suscrito
-                                        Toast.makeText(PeliculaDetalleActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-                                    } else {
-                                        msg = "Algo ha ido mal, inténtalo más tarde.";
-                                    }
-                                }
-                            });
+                    SuscripcionUtil.desuscribirseDeTema(push, PeliculaDetalleActivity.this);
+                    notificacion.setBackgroundColor(Color.TRANSPARENT);
+                    notificacion.setText("¡Avísame!");
+                    isNotificacionEnabled = false;
                 } else {
                     // Si el usuario no está suscrito, suscribirlo
-                    FirebaseMessaging.getInstance().subscribeToTopic(push)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @SuppressLint("RestrictedApi")
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    String msg;
-                                    if (task.isSuccessful()) {
-                                        msg = "Genial! Te avisaremos.";
-                                        // Cambiar color y texto del botón
-                                        notificacion.setBackgroundColor(Color.parseColor("#FFA500")); // Cambiar color a naranja
-                                        ((Button) v).setText("Quitar aviso"); // Cambiar texto a "Quitar aviso"
-                                        isNotificacionEnabled = true; // El usuario está suscrito ahora
-                                        guardarSuscripciones(nombre, push); // Guardar la suscripción en el archivo
-                                    } else {
-                                        msg = "Algo ha ido mal, inténtalo mas tarde.";
-                                    }
-                                    Log.d(TAG, msg);
-                                    Toast.makeText(PeliculaDetalleActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    SuscripcionUtil.guardarSuscripciones(nombre, push, PeliculaDetalleActivity.this);
+                    notificacion.setBackgroundColor(Color.parseColor("#FFA500"));
+                    notificacion.setText("Quitar aviso");
+                    isNotificacionEnabled = true;
                 }
             }
         });
@@ -212,36 +181,6 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
 
             scanner.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void eliminarSuscripcion(String tema) {
-        try {
-            // Obtener la ruta del archivo notificaciones.txt
-            String filePath = getApplicationContext().getFilesDir() + "/" + "notificaciones.txt";
-            File file = new File(filePath);
-            // Verificar si el archivo existe
-            if (file.exists()) {
-                // Leer el contenido del archivo y eliminar la línea correspondiente al tema
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    // Si la línea no contiene el tema, la añadimos al nuevo contenido
-                    if (!line.startsWith(tema + ":")) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                }
-                reader.close();
-
-                // Escribir el nuevo contenido al archivo
-                FileWriter writer = new FileWriter(file);
-                writer.write(stringBuilder.toString());
-                writer.close();
-            }
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
