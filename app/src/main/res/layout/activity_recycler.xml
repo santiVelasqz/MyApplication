@@ -80,13 +80,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaNetflix"
         android:layout_width="373dp"
-        android:layout_height="461dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="186dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintStart_toStartOf="parent" />
     <!-- Spinner para el tipo de estreno -->
+
     <Spinner
         android:id="@+id/sp_tipo"
         android:layout_width="140dp"

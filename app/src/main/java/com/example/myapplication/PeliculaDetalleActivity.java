@@ -1,48 +1,23 @@
 package com.example.myapplication;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import com.squareup.picasso.Picasso;
-
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class PeliculaDetalleActivity extends AppCompatActivity {
     private SessionManager sessionManager;
@@ -125,7 +100,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isNotificacionEnabled) {
                     // Si el usuario está suscrito, desuscribirlo
-                    SuscripcionUtil.desuscribirseDeTema(push, PeliculaDetalleActivity.this);
+                    SuscripcionUtil.desuscribirseDeTema(push,PeliculaDetalleActivity.this);
                     notificacion.setBackgroundColor(Color.TRANSPARENT);
                     notificacion.setText("¡Avísame!");
                     isNotificacionEnabled = false;
@@ -185,21 +160,6 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         }
     }
 
-
-    private void guardarSuscripciones(String nombre, String push) {
-        Context context = getApplicationContext();
-        String contenido = nombre + ":" + push + "\n";
-
-        try {
-            // Abrir el archivo notificaciones.txt en modo append (para añadir al final)
-            FileWriter fileWriter = new FileWriter(context.getFilesDir() + "/" + "notificaciones.txt", true);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print(contenido);
-            printWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public void atras(View view) {
