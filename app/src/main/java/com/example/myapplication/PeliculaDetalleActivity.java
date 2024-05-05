@@ -16,9 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +57,6 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         btn_ajustes = findViewById(R.id.btn_ajustes);
         notificacion = findViewById(R.id.btn_notificacion);
 
-
         // Inicializar sessionManager
         sessionManager = new SessionManager(this);
         //SE RECOGEN LOS DATOS QUE SE HAN ENVIADO DE OTRA ACTIVITY
@@ -70,6 +72,9 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         String push = intent.getStringExtra("push");
         String tipoEstreno = getIntent().getStringExtra("tipoEstreno");
         final String trailerUrl = intent.getStringExtra("trailerUrl");
+
+        verificarSuscripcion(nombre, push);
+
 
         // Referencias de vistas
         ImageView imageViewFoto = findViewById(R.id.imageViewFoto);
@@ -159,6 +164,37 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
         }
         return id;
     }
+
+    private void verificarSuscripcion(String nombre, String push) {
+        Context context = getApplicationContext();
+        String contenidoBusqueda = nombre + ":" + push;
+
+        try {
+            // Abrir el archivo notificaciones.txt para buscar la suscripción
+            File file = new File(context.getFilesDir() + "/" + "notificaciones.txt");
+            Scanner scanner = new Scanner(file);
+
+            // Buscar la suscripción en el archivo
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.contains(contenidoBusqueda)) {
+                    notificacion.setBackgroundColor(Color.parseColor("#FFA500"));
+                    notificacion.setText("Quitar aviso");
+                    isNotificacionEnabled = false;
+                    scanner.close();
+                    return;
+                }
+            }
+            notificacion.setBackgroundColor(Color.TRANSPARENT);
+            notificacion.setText("¡Avísame!");
+            isNotificacionEnabled = true;
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void guardarSuscripciones(String nombre, String push) {
         Context context = getApplicationContext();
         String contenido = nombre + ":" + push + "\n";
