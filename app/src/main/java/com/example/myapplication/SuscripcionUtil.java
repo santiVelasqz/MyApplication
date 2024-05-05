@@ -113,45 +113,11 @@ public class SuscripcionUtil {
     }
 
     public static void desuscribirseDeTema(String tema, Context context) {
-        try {
-            // Obtener la ruta del archivo notificaciones.txt
-            String filePath = context.getFilesDir() + "/" + "notificaciones.txt";
-            File file = new File(filePath);
-            // Verificar si el archivo existe
-            if (file.exists()) {
-                // Leer el contenido del archivo y eliminar la línea correspondiente al tema
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                boolean encontrado = false;
-                while ((line = reader.readLine()) != null) {
-                    // Si la línea no contiene el tema, la añadimos al nuevo contenido
-                    if (!line.startsWith(tema + ":")) {
-                        stringBuilder.append(line).append("\n");
-                    } else {
-                        encontrado = true;
-                    }
-                }
-                reader.close();
-
-                // Escribir el nuevo contenido al archivo
-                FileWriter writer = new FileWriter(file);
-                writer.write(stringBuilder.toString());
-                writer.close();
-
-                if (encontrado) {
-                    // Si se encontró el tema y se eliminó correctamente, mostrar un mensaje Toast
-                    mostrarMensaje(context, "Desuscripción exitosa de " + tema);
-                } else {
-
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Desuscribirse del tema en Firebase Messaging
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(tema);
+        // Eliminar la suscripción del archivo de notificaciones
+        eliminarSuscripcion(context, tema);
     }
-
-
 
 
 }
