@@ -103,8 +103,10 @@ public class SuscripcionUtil {
                 String tema = suscripciones.get(i);
                 // Desuscribirse del tema en Firebase Messaging
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(tema);
+                Log.d("SuscripcionUtil", "Desuscripción de Firebase Messaging para el tema: " + tema);
                 // Eliminar la suscripción del archivo de notificaciones
                 eliminarSuscripcion(context, tema);
+                Log.d("SuscripcionUtil", "Desuscripción de Firebase Messaging para el tema: " + tema);
                 // Mostrar mensaje de desuscripción exitosa
                 mostrarMensaje(context, "Desuscripción exitosa de " + tema);
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -100,16 +101,18 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isNotificacionEnabled) {
                     // Si el usuario está suscrito, desuscribirlo
-                    SuscripcionUtil.desuscribirseDeTema(push,PeliculaDetalleActivity.this);
+                    SuscripcionUtil.desuscribirseDeTema(nombre,PeliculaDetalleActivity.this);
                     notificacion.setBackgroundColor(Color.TRANSPARENT);
                     notificacion.setText("¡Avísame!");
                     isNotificacionEnabled = false;
+                    Log.d("SuscripcionUtil", "Desuscripción de Firebase Messaging para el tema: " + push);
                 } else {
                     // Si el usuario no está suscrito, suscribirlo
                     SuscripcionUtil.guardarSuscripciones(nombre, push, PeliculaDetalleActivity.this);
                     notificacion.setBackgroundColor(Color.parseColor("#FFA500"));
                     notificacion.setText("Quitar aviso");
                     isNotificacionEnabled = true;
+                    Log.d("SuscripcionUtil", "Desuscripción de Firebase Messaging para el tema: " + push);
                 }
             }
         });
