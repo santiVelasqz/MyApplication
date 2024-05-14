@@ -127,12 +127,12 @@ public class SuscripcionUtil {
         }
     }
 
-    public static void desuscribirseDeTema(String tema, Context context) {
+    public static void desuscribirseDeTema(String tema,String nombre, Context context) {
         // Desuscribirse del tema en Firebase Messaging
         FirebaseMessaging.getInstance().unsubscribeFromTopic(tema);
         Log.d("SuscripcionUtil", "Desuscripción de Firebase Messaging para el tema: " + tema);
         // Eliminar la suscripción del archivo de notificaciones
-        eliminarSuscripcion(context, tema);
+        eliminarSuscripcion(context, nombre);
         Log.d("SuscripcionUtil", "Eliminación de suscripción en el archivo para el tema: " + tema);
     }
 

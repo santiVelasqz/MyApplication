@@ -101,7 +101,7 @@ public class PeliculaDetalleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isNotificacionEnabled) {
                     // Si el usuario está suscrito, desuscribirlo
-                    SuscripcionUtil.desuscribirseDeTema(nombre,PeliculaDetalleActivity.this);
+                    SuscripcionUtil.desuscribirseDeTema(push, nombre,PeliculaDetalleActivity.this);
                     notificacion.setBackgroundColor(Color.TRANSPARENT);
                     notificacion.setText("¡Avísame!");
                     isNotificacionEnabled = false;

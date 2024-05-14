@@ -81,9 +81,20 @@ public class LoginActivity extends AppCompatActivity {
         btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registrarUsuario();
+                String emailText = email.getText().toString().trim();
+                String passwordText = password.getText().toString().trim();
+
+                // Verificar si los EditText están vacíos
+                if (emailText.isEmpty() || passwordText.isEmpty()) {
+                    // Mostrar un Toast indicando que se deben rellenar los campos
+                    Toast.makeText(getApplicationContext(), "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Los campos no están vacíos, llamar a registrarUsuario()
+                    registrarUsuario();
+                }
             }
         });
+
 
         Button resetPasswordButton = findViewById(R.id.btn_reset_password);
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
